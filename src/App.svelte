@@ -1,8 +1,9 @@
 <script>
 	import Map from './Map.svelte'
 	import ColorPicker from './ColorPicker.svelte'
+	import { geoBaseData as dotPromise } from './zipToGeo.js'
 	
-	let dotPromise = fetch('./assets/zipcode_data.json').then(res => res.json())
+	// let dotPromise = fetch('./assets/zipcode_data.json').then(res => res.json())
 	let animParams = {
 			animLength: 6,
 			animSpread: 0.2,
@@ -15,6 +16,8 @@
 		stateColor: {r: 2, g: 16, b: 54},
 		textColor: {r: 234, g: 245, b:255}
 	}
+
+	dotPromise.then(data => console.log('data fetched! ', data))
 </script>
 
 <Map bind:showDots dotPromise={dotPromise}
