@@ -1,22 +1,13 @@
 import { csvParse } from 'd3'
 
-export const zipTable = fetch('./assets/zip_lat-long.csv')
-    .then(res => {
-        return res.ok ? res.text() : Promise.reject(res.status);
-    }).then(text => csvParse(text))
+export const zipTable = enqueueCSV('./assets/zip_lat-long.csv')
 
-export const baseData = fetch('./assets/base_zipcodes.csv')
-    .then(res => {
-        return res.ok ? res.text() : Promise.reject(res.status);
-    }).then(text => csvParse(text))
+export const baseData = enqueueCSV('./assets/base_zipcodes.csv')
 
-export const fillerData = fetch('./assets/filler_data.csv')
-    .then(res => {
-        return res.ok ? res.text() : Promise.reject(res.status);
-    }).then(text => csvParse(text))
+export const fillerData = enqueueCSV('./assets/filler_data.csv')
     .then(data => {
         return data.map(d => {
-            return {
+            return { // construct a geoJSON feature
                 type: "Feature",
                 properties: {
                     zipcode: undefined,
@@ -31,10 +22,11 @@ export const fillerData = fetch('./assets/filler_data.csv')
     })
 
 export const talliedBaseData = baseData.then(data => {
-    const flatZips = data.map(d => d.zipcode)
-    const unique = flatZips.filter(isDistinct)
+    const lowercaseData = objKeysToLowercase(data) // handle case that user uploads a CSV with title case column headers
+    const flatZips = lowercaseData.map(d => d.zipcode) // extract zipcodes into flat Array
+    const unique = flatZips.filter(isDistinct) // extract unique values
         .map(d => {
-            return {
+            return { // construct new item with zip and number of occurrances of zip in data
                 zipcode: d,
                 numPeople: flatZips.filter(item => item === d).length
             }
@@ -43,28 +35,41 @@ export const talliedBaseData = baseData.then(data => {
     return unique
 })
 
-export const geoBaseData = Promise.all([zipTable, talliedBaseData, fillerData]).then(([zip2geo, zipcodes, filler]) => {
-    return {
-        "type":"FeatureCollection",
-        "features": [...zipcodes.map(z => {
-            let item = zip2geo.find(geo => geo.zip == z.zipcode)
+export const geoBaseData = Promise.all([zipTable, talliedBaseData, fillerData])
+    .then(([zip2geo, zipcodes, filler]) => {
+        return { // construct geoJSON FeatureCollection, essentially a big table merge
+            "type":"FeatureCollection",
+            "features": [...zipcodes.map(z => {
+                let item = zip2geo.find(geo => geo.zip == z.zipcode)
 
-            if (!item) return
+                if (!item) return
 
-            return {
-                type: "Feature",
-                properties: {
-                    zipcode: z.zipcode,
-                    numPeople: z.numPeople,
-                },
-                geometry: {
-                    type: "Point",
-                    coordinates: [parseFloat(item.longitude), parseFloat(item.latitude)]
+                return {
+                    type: "Feature",
+                    properties: {
+                        zipcode: z.zipcode,
+                        numPeople: z.numPeople,
+                    },
+                    geometry: {
+                        type: "Point",
+                        coordinates: [parseFloat(item.longitude), parseFloat(item.latitude)]
+                    }
                 }
-            }
-        }).filter(item => !!item),
-        ...filler]
-    }    
+            }).filter(item => !!item),
+            ...filler]
+        }    
 })
 
+function enqueueCSV(csv) {
+    return fetch(csv)
+        .then(res => {
+            return res.ok ? res.text() : Promise.reject(res.status);
+        }).then(text => csvParse(text))
+}
+
 function isDistinct(val, index, arr) { return arr.indexOf(val) === index }
+
+function objKeysToLowercase(obj) {
+    const newObj = {}
+    return Object.keys(obj).map(key => newObj[key.toLowerCase()] = obj[key])
+}

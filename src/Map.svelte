@@ -7,6 +7,8 @@
 	export let animLength = 6
 	export let animSpread = 0.08
 	export let dotSize = 3
+	export let maxGrowthFactor = 1.5
+	export let growthDuration = .2
 	export let dotPromise = null
 
 	export let bgColor = {r: 75, g: 112, b: 179}
@@ -35,7 +37,9 @@
 		style={`--bg: rgb(${bgColor.r},${bgColor.g},${bgColor.b});
 					 --state: rgb(${stateColor.r},${stateColor.g},${stateColor.b});
 					 --text: rgb(${textColor.r},${textColor.g},${textColor.b});
-					 --dots: rgb(${dotColor.r},${dotColor.g},${dotColor.b});`}>
+					 --dots: rgb(${dotColor.r},${dotColor.g},${dotColor.b});
+					 --max-growth-factor: ${maxGrowthFactor};
+					 --growth-duration: ${growthDuration}s;`}>
 {#await statePromise}
 	<text x='50%' y='50%' style='transform: translate(-50%, -50%);'>Loading...</text>
 {:then states}
@@ -111,7 +115,7 @@
 	}
 
 	.play-anim .zipcode {
-		 animation: appear .2s var(--delay) linear forwards;
+		 animation: appear var(--growth-duration) var(--delay) linear forwards;
 		filter: drop-shadow(2px 0 2px hsla(45deg, 75%, 85%, 0.15));
 	}
 
@@ -121,7 +125,7 @@
 			transform: translateY(1vh) scale(0);
 		}
 		75% {
-			transform: translateY(-.25vh) scale(1.25);
+			transform: translateY(-.25vh) scale(var(--max-growth-factor));
 		}
 		100% {
 			opacity: 1;

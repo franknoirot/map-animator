@@ -1,5 +1,5 @@
 <script>
-  import {RGBToHSL} from './colorFns'
+  import {RGBToHSL} from '../colorFns'
   export let rgb = {
     r: 0,
     g: 0,

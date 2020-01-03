@@ -564,6 +564,10 @@ var app = (function () {
         else
             dispatch_dev("SvelteDOMSetAttribute", { node, attribute, value });
     }
+    function prop_dev(node, property, value) {
+        node[property] = value;
+        dispatch_dev("SvelteDOMSetProperty", { node, property, value });
+    }
     function set_data_dev(text, data) {
         data = '' + data;
         if (text.data === data)
@@ -5546,22 +5550,22 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[18] = list[i];
-    	child_ctx[20] = i;
+    	child_ctx[20] = list[i];
+    	child_ctx[22] = i;
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[22] = list[i];
-    	child_ctx[20] = i;
+    	child_ctx[24] = list[i];
+    	child_ctx[22] = i;
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[18] = list[i];
-    	child_ctx[20] = i;
+    	child_ctx[20] = list[i];
+    	child_ctx[22] = i;
     	return child_ctx;
     }
 
@@ -5580,7 +5584,7 @@ var app = (function () {
     	return block;
     }
 
-    // (41:0) {:then states}
+    // (45:0) {:then states}
     function create_then_block(ctx) {
     	let g0;
     	let each_blocks_1 = [];
@@ -5588,8 +5592,8 @@ var app = (function () {
     	let g1;
     	let each_blocks = [];
     	let each1_lookup = new Map_1();
-    	let each_value_2 = feature(/*states*/ ctx[17], /*states*/ ctx[17].objects.usStates).features;
-    	const get_key = ctx => `state-${/*i*/ ctx[20]}`;
+    	let each_value_2 = feature(/*states*/ ctx[19], /*states*/ ctx[19].objects.usStates).features;
+    	const get_key = ctx => `state-${/*i*/ ctx[22]}`;
 
     	for (let i = 0; i < each_value_2.length; i += 1) {
     		let child_ctx = get_each_context_2(ctx, each_value_2, i);
@@ -5597,9 +5601,9 @@ var app = (function () {
     		each0_lookup.set(key, each_blocks_1[i] = create_each_block_2(key, child_ctx));
     	}
 
-    	let if_block = /*dotPromise*/ ctx[4] && create_if_block(ctx);
-    	let each_value = feature(/*states*/ ctx[17], /*states*/ ctx[17].objects.usStates).features;
-    	const get_key_1 = ctx => `state-label-${/*i*/ ctx[20]}`;
+    	let if_block = /*dotPromise*/ ctx[6] && create_if_block(ctx);
+    	let each_value = feature(/*states*/ ctx[19], /*states*/ ctx[19].objects.usStates).features;
+    	const get_key_1 = ctx => `state-label-${/*i*/ ctx[22]}`;
 
     	for (let i = 0; i < each_value.length; i += 1) {
     		let child_ctx = get_each_context(ctx, each_value, i);
@@ -5622,10 +5626,10 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(g0, "class", "states svelte-litw6m");
-    			add_location(g0, file, 41, 1, 1361);
+    			attr_dev(g0, "class", "states svelte-10q0667");
+    			add_location(g0, file, 45, 1, 1519);
     			attr_dev(g1, "class", "state-labels");
-    			add_location(g1, file, 58, 1, 2053);
+    			add_location(g1, file, 62, 1, 2211);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, g0, anchor);
@@ -5642,10 +5646,10 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			const each_value_2 = feature(/*states*/ ctx[17], /*states*/ ctx[17].objects.usStates).features;
+    			const each_value_2 = feature(/*states*/ ctx[19], /*states*/ ctx[19].objects.usStates).features;
     			each_blocks_1 = update_keyed_each(each_blocks_1, dirty, get_key, 1, ctx, each_value_2, each0_lookup, g0, destroy_block, create_each_block_2, null, get_each_context_2);
 
-    			if (/*dotPromise*/ ctx[4]) {
+    			if (/*dotPromise*/ ctx[6]) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -5658,7 +5662,7 @@ var app = (function () {
     				if_block = null;
     			}
 
-    			const each_value = feature(/*states*/ ctx[17], /*states*/ ctx[17].objects.usStates).features;
+    			const each_value = feature(/*states*/ ctx[19], /*states*/ ctx[19].objects.usStates).features;
     			each_blocks = update_keyed_each(each_blocks, dirty, get_key_1, 1, ctx, each_value, each1_lookup, g1, destroy_block, create_each_block, null, get_each_context);
     		},
     		d: function destroy(detaching) {
@@ -5681,14 +5685,14 @@ var app = (function () {
     		block,
     		id: create_then_block.name,
     		type: "then",
-    		source: "(41:0) {:then states}",
+    		source: "(45:0) {:then states}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (43:2) {#each topojson.feature(states, states.objects.usStates).features as state, i (`state-${i}
+    // (47:2) {#each topojson.feature(states, states.objects.usStates).features as state, i (`state-${i}
     function create_each_block_2(key_1, ctx) {
     	let path_1;
     	let path_1_d_value;
@@ -5699,10 +5703,10 @@ var app = (function () {
     		first: null,
     		c: function create() {
     			path_1 = svg_element("path");
-    			attr_dev(path_1, "d", path_1_d_value = /*path*/ ctx[12](/*state*/ ctx[18]));
-    			attr_dev(path_1, "class", "state svelte-litw6m");
-    			attr_dev(path_1, "data-abbr", path_1_data_abbr_value = /*state*/ ctx[18].properties.STATE_ABBR);
-    			add_location(path_1, file, 43, 2, 1478);
+    			attr_dev(path_1, "d", path_1_d_value = /*path*/ ctx[14](/*state*/ ctx[20]));
+    			attr_dev(path_1, "class", "state svelte-10q0667");
+    			attr_dev(path_1, "data-abbr", path_1_data_abbr_value = /*state*/ ctx[20].properties.STATE_ABBR);
+    			add_location(path_1, file, 47, 2, 1636);
     			this.first = path_1;
     		},
     		m: function mount(target, anchor) {
@@ -5718,14 +5722,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(43:2) {#each topojson.feature(states, states.objects.usStates).features as state, i (`state-${i}",
+    		source: "(47:2) {#each topojson.feature(states, states.objects.usStates).features as state, i (`state-${i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (47:1) {#if dotPromise}
+    // (51:1) {#if dotPromise}
     function create_if_block(ctx) {
     	let g;
     	let promise;
@@ -5737,17 +5741,17 @@ var app = (function () {
     		pending: create_pending_block_1,
     		then: create_then_block_1,
     		catch: create_catch_block,
-    		value: 21
+    		value: 23
     	};
 
-    	handle_promise(promise = /*dotPromise*/ ctx[4], info);
+    	handle_promise(promise = /*dotPromise*/ ctx[6], info);
 
     	const block = {
     		c: function create() {
     			g = svg_element("g");
     			info.block.c();
     			attr_dev(g, "class", "dots");
-    			add_location(g, file, 47, 1, 1599);
+    			add_location(g, file, 51, 1, 1757);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, g, anchor);
@@ -5759,9 +5763,9 @@ var app = (function () {
     			ctx = new_ctx;
     			info.ctx = ctx;
 
-    			if (dirty & /*dotPromise*/ 16 && promise !== (promise = /*dotPromise*/ ctx[4]) && handle_promise(promise, info)) ; else {
+    			if (dirty & /*dotPromise*/ 64 && promise !== (promise = /*dotPromise*/ ctx[6]) && handle_promise(promise, info)) ; else {
     				const child_ctx = ctx.slice();
-    				child_ctx[21] = info.resolved;
+    				child_ctx[23] = info.resolved;
     				info.block.p(child_ctx, dirty);
     			}
     		},
@@ -5777,7 +5781,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(47:1) {#if dotPromise}",
+    		source: "(51:1) {#if dotPromise}",
     		ctx
     	});
 
@@ -5799,13 +5803,13 @@ var app = (function () {
     	return block;
     }
 
-    // (51:2) {:then dots}
+    // (55:2) {:then dots}
     function create_then_block_1(ctx) {
     	let each_blocks = [];
     	let each_1_lookup = new Map_1();
     	let each_1_anchor;
-    	let each_value_1 = /*dots*/ ctx[21].features.sort(/*sortFn*/ ctx[13]);
-    	const get_key = ctx => /*i*/ ctx[20];
+    	let each_value_1 = /*dots*/ ctx[23].features.sort(/*sortFn*/ ctx[15]);
+    	const get_key = ctx => /*i*/ ctx[22];
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
     		let child_ctx = get_each_context_1(ctx, each_value_1, i);
@@ -5829,7 +5833,7 @@ var app = (function () {
     			insert_dev(target, each_1_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			const each_value_1 = /*dots*/ ctx[21].features.sort(/*sortFn*/ ctx[13]);
+    			const each_value_1 = /*dots*/ ctx[23].features.sort(/*sortFn*/ ctx[15]);
     			each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value_1, each_1_lookup, each_1_anchor.parentNode, destroy_block, create_each_block_1, each_1_anchor, get_each_context_1);
     		},
     		d: function destroy(detaching) {
@@ -5845,14 +5849,14 @@ var app = (function () {
     		block,
     		id: create_then_block_1.name,
     		type: "then",
-    		source: "(51:2) {:then dots}",
+    		source: "(55:2) {:then dots}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (52:3) {#each dots.features.sort(sortFn) as dot, i (i)}
+    // (56:3) {#each dots.features.sort(sortFn) as dot, i (i)}
     function create_each_block_1(key_1, ctx) {
     	let path_1;
     	let path_1_d_value;
@@ -5864,26 +5868,26 @@ var app = (function () {
     		first: null,
     		c: function create() {
     			path_1 = svg_element("path");
-    			attr_dev(path_1, "d", path_1_d_value = /*path*/ ctx[12].pointRadius(/*dotSize*/ ctx[3])(/*dot*/ ctx[22]));
-    			attr_dev(path_1, "class", "zipcode svelte-litw6m");
-    			attr_dev(path_1, "id", path_1_id_value = "dot-" + /*i*/ ctx[20]);
-    			attr_dev(path_1, "style", path_1_style_value = `--delay:${(/*i*/ ctx[20] + (Math.random() - 0.5) * /*dots*/ ctx[21].features.length * /*animSpread*/ ctx[2]) / /*dots*/ ctx[21].features.length * /*animLength*/ ctx[1]}s; --cx:${/*projection*/ ctx[11](/*dot*/ ctx[22].geometry.coordinates)[0]}px; --cy:${/*projection*/ ctx[11](/*dot*/ ctx[22].geometry.coordinates)[1]}px;`);
-    			add_location(path_1, file, 52, 2, 1723);
+    			attr_dev(path_1, "d", path_1_d_value = /*path*/ ctx[14].pointRadius(/*dotSize*/ ctx[3])(/*dot*/ ctx[24]));
+    			attr_dev(path_1, "class", "zipcode svelte-10q0667");
+    			attr_dev(path_1, "id", path_1_id_value = "dot-" + /*i*/ ctx[22]);
+    			attr_dev(path_1, "style", path_1_style_value = `--delay:${(/*i*/ ctx[22] + (Math.random() - 0.5) * /*dots*/ ctx[23].features.length * /*animSpread*/ ctx[2]) / /*dots*/ ctx[23].features.length * /*animLength*/ ctx[1]}s; --cx:${/*projection*/ ctx[13](/*dot*/ ctx[24].geometry.coordinates)[0]}px; --cy:${/*projection*/ ctx[13](/*dot*/ ctx[24].geometry.coordinates)[1]}px;`);
+    			add_location(path_1, file, 56, 2, 1881);
     			this.first = path_1;
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, path_1, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*dotSize, dotPromise*/ 24 && path_1_d_value !== (path_1_d_value = /*path*/ ctx[12].pointRadius(/*dotSize*/ ctx[3])(/*dot*/ ctx[22]))) {
+    			if (dirty & /*dotSize, dotPromise*/ 72 && path_1_d_value !== (path_1_d_value = /*path*/ ctx[14].pointRadius(/*dotSize*/ ctx[3])(/*dot*/ ctx[24]))) {
     				attr_dev(path_1, "d", path_1_d_value);
     			}
 
-    			if (dirty & /*dotPromise*/ 16 && path_1_id_value !== (path_1_id_value = "dot-" + /*i*/ ctx[20])) {
+    			if (dirty & /*dotPromise*/ 64 && path_1_id_value !== (path_1_id_value = "dot-" + /*i*/ ctx[22])) {
     				attr_dev(path_1, "id", path_1_id_value);
     			}
 
-    			if (dirty & /*dotPromise, animSpread, animLength*/ 22 && path_1_style_value !== (path_1_style_value = `--delay:${(/*i*/ ctx[20] + (Math.random() - 0.5) * /*dots*/ ctx[21].features.length * /*animSpread*/ ctx[2]) / /*dots*/ ctx[21].features.length * /*animLength*/ ctx[1]}s; --cx:${/*projection*/ ctx[11](/*dot*/ ctx[22].geometry.coordinates)[0]}px; --cy:${/*projection*/ ctx[11](/*dot*/ ctx[22].geometry.coordinates)[1]}px;`)) {
+    			if (dirty & /*dotPromise, animSpread, animLength*/ 70 && path_1_style_value !== (path_1_style_value = `--delay:${(/*i*/ ctx[22] + (Math.random() - 0.5) * /*dots*/ ctx[23].features.length * /*animSpread*/ ctx[2]) / /*dots*/ ctx[23].features.length * /*animLength*/ ctx[1]}s; --cx:${/*projection*/ ctx[13](/*dot*/ ctx[24].geometry.coordinates)[0]}px; --cy:${/*projection*/ ctx[13](/*dot*/ ctx[24].geometry.coordinates)[1]}px;`)) {
     				attr_dev(path_1, "style", path_1_style_value);
     			}
     		},
@@ -5896,22 +5900,22 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(52:3) {#each dots.features.sort(sortFn) as dot, i (i)}",
+    		source: "(56:3) {#each dots.features.sort(sortFn) as dot, i (i)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (49:21)    <text></text>   {:then dots}
+    // (53:21)    <text></text>   {:then dots}
     function create_pending_block_1(ctx) {
     	let text_1;
 
     	const block = {
     		c: function create() {
     			text_1 = svg_element("text");
-    			attr_dev(text_1, "class", "svelte-litw6m");
-    			add_location(text_1, file, 49, 2, 1640);
+    			attr_dev(text_1, "class", "svelte-10q0667");
+    			add_location(text_1, file, 53, 2, 1798);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, text_1, anchor);
@@ -5926,17 +5930,17 @@ var app = (function () {
     		block,
     		id: create_pending_block_1.name,
     		type: "pending",
-    		source: "(49:21)    <text></text>   {:then dots}",
+    		source: "(53:21)    <text></text>   {:then dots}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (60:2) {#each topojson.feature(states, states.objects.usStates).features as state, i (`state-label-${i}
+    // (64:2) {#each topojson.feature(states, states.objects.usStates).features as state, i (`state-label-${i}
     function create_each_block(key_1, ctx) {
     	let text_1;
-    	let t_value = /*state*/ ctx[18].properties.STATE_ABBR + "";
+    	let t_value = /*state*/ ctx[20].properties.STATE_ABBR + "";
     	let t;
     	let text_1_x_value;
     	let text_1_y_value;
@@ -5948,16 +5952,16 @@ var app = (function () {
     			text_1 = svg_element("text");
     			t = text(t_value);
 
-    			attr_dev(text_1, "x", text_1_x_value = /*path*/ ctx[12].centroid(/*state*/ ctx[18])[0] + (matchLabelToTweak(/*state*/ ctx[18]) !== null
-    			? matchLabelToTweak(/*state*/ ctx[18])[0]
+    			attr_dev(text_1, "x", text_1_x_value = /*path*/ ctx[14].centroid(/*state*/ ctx[20])[0] + (matchLabelToTweak(/*state*/ ctx[20]) !== null
+    			? matchLabelToTweak(/*state*/ ctx[20])[0]
     			: 0));
 
-    			attr_dev(text_1, "y", text_1_y_value = /*path*/ ctx[12].centroid(/*state*/ ctx[18])[1] + (matchLabelToTweak(/*state*/ ctx[18]) !== null
-    			? matchLabelToTweak(/*state*/ ctx[18])[1]
+    			attr_dev(text_1, "y", text_1_y_value = /*path*/ ctx[14].centroid(/*state*/ ctx[20])[1] + (matchLabelToTweak(/*state*/ ctx[20]) !== null
+    			? matchLabelToTweak(/*state*/ ctx[20])[1]
     			: 0));
 
-    			attr_dev(text_1, "class", "svelte-litw6m");
-    			add_location(text_1, file, 60, 2, 2182);
+    			attr_dev(text_1, "class", "svelte-10q0667");
+    			add_location(text_1, file, 64, 2, 2340);
     			this.first = text_1;
     		},
     		m: function mount(target, anchor) {
@@ -5974,14 +5978,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(60:2) {#each topojson.feature(states, states.objects.usStates).features as state, i (`state-label-${i}",
+    		source: "(64:2) {#each topojson.feature(states, states.objects.usStates).features as state, i (`state-label-${i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (39:21)   <text x='50%' y='50%' style='transform: translate(-50%, -50%);'>Loading...</text> {:then states}
+    // (43:21)   <text x='50%' y='50%' style='transform: translate(-50%, -50%);'>Loading...</text> {:then states}
     function create_pending_block(ctx) {
     	let text_1;
     	let t;
@@ -5993,8 +5997,8 @@ var app = (function () {
     			attr_dev(text_1, "x", "50%");
     			attr_dev(text_1, "y", "50%");
     			set_style(text_1, "transform", "translate(-50%, -50%)");
-    			attr_dev(text_1, "class", "svelte-litw6m");
-    			add_location(text_1, file, 39, 1, 1263);
+    			attr_dev(text_1, "class", "svelte-10q0667");
+    			add_location(text_1, file, 43, 1, 1421);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, text_1, anchor);
@@ -6010,7 +6014,7 @@ var app = (function () {
     		block,
     		id: create_pending_block.name,
     		type: "pending",
-    		source: "(39:21)   <text x='50%' y='50%' style='transform: translate(-50%, -50%);'>Loading...</text> {:then states}",
+    		source: "(43:21)   <text x='50%' y='50%' style='transform: translate(-50%, -50%);'>Loading...</text> {:then states}",
     		ctx
     	});
 
@@ -6031,26 +6035,28 @@ var app = (function () {
     		pending: create_pending_block,
     		then: create_then_block,
     		catch: create_catch_block_1,
-    		value: 17
+    		value: 19
     	};
 
-    	handle_promise(promise = /*statePromise*/ ctx[10], info);
+    	handle_promise(promise = /*statePromise*/ ctx[12], info);
 
     	const block = {
     		c: function create() {
     			svg = svg_element("svg");
     			info.block.c();
     			attr_dev(svg, "id", "map");
-    			attr_dev(svg, "viewBox", /*viewBox*/ ctx[9]);
-    			attr_dev(svg, "class", svg_class_value = "" + (null_to_empty(/*showDots*/ ctx[0] ? "play-anim" : "") + " svelte-litw6m"));
+    			attr_dev(svg, "viewBox", /*viewBox*/ ctx[11]);
+    			attr_dev(svg, "class", svg_class_value = "" + (null_to_empty(/*showDots*/ ctx[0] ? "play-anim" : "") + " svelte-10q0667"));
 
-    			attr_dev(svg, "style", svg_style_value = `--bg: rgb(${/*bgColor*/ ctx[5].r},${/*bgColor*/ ctx[5].g},${/*bgColor*/ ctx[5].b});
-					 --state: rgb(${/*stateColor*/ ctx[6].r},${/*stateColor*/ ctx[6].g},${/*stateColor*/ ctx[6].b});
-					 --text: rgb(${/*textColor*/ ctx[7].r},${/*textColor*/ ctx[7].g},${/*textColor*/ ctx[7].b});
-					 --dots: rgb(${/*dotColor*/ ctx[8].r},${/*dotColor*/ ctx[8].g},${/*dotColor*/ ctx[8].b});`);
+    			attr_dev(svg, "style", svg_style_value = `--bg: rgb(${/*bgColor*/ ctx[7].r},${/*bgColor*/ ctx[7].g},${/*bgColor*/ ctx[7].b});
+					 --state: rgb(${/*stateColor*/ ctx[8].r},${/*stateColor*/ ctx[8].g},${/*stateColor*/ ctx[8].b});
+					 --text: rgb(${/*textColor*/ ctx[9].r},${/*textColor*/ ctx[9].g},${/*textColor*/ ctx[9].b});
+					 --dots: rgb(${/*dotColor*/ ctx[10].r},${/*dotColor*/ ctx[10].g},${/*dotColor*/ ctx[10].b});
+					 --max-growth-factor: ${/*maxGrowthFactor*/ ctx[4]};
+					 --growth-duration: ${/*growthDuration*/ ctx[5]}s;`);
 
-    			add_location(svg, file, 31, 0, 868);
-    			dispose = listen_dev(svg, "click", /*click_handler*/ ctx[16], false, false, false);
+    			add_location(svg, file, 33, 0, 934);
+    			dispose = listen_dev(svg, "click", /*click_handler*/ ctx[18], false, false, false);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -6066,22 +6072,24 @@ var app = (function () {
 
     			{
     				const child_ctx = ctx.slice();
-    				child_ctx[17] = info.resolved;
+    				child_ctx[19] = info.resolved;
     				info.block.p(child_ctx, dirty);
     			}
 
-    			if (dirty & /*viewBox*/ 512) {
-    				attr_dev(svg, "viewBox", /*viewBox*/ ctx[9]);
+    			if (dirty & /*viewBox*/ 2048) {
+    				attr_dev(svg, "viewBox", /*viewBox*/ ctx[11]);
     			}
 
-    			if (dirty & /*showDots*/ 1 && svg_class_value !== (svg_class_value = "" + (null_to_empty(/*showDots*/ ctx[0] ? "play-anim" : "") + " svelte-litw6m"))) {
+    			if (dirty & /*showDots*/ 1 && svg_class_value !== (svg_class_value = "" + (null_to_empty(/*showDots*/ ctx[0] ? "play-anim" : "") + " svelte-10q0667"))) {
     				attr_dev(svg, "class", svg_class_value);
     			}
 
-    			if (dirty & /*bgColor, stateColor, textColor, dotColor*/ 480 && svg_style_value !== (svg_style_value = `--bg: rgb(${/*bgColor*/ ctx[5].r},${/*bgColor*/ ctx[5].g},${/*bgColor*/ ctx[5].b});
-					 --state: rgb(${/*stateColor*/ ctx[6].r},${/*stateColor*/ ctx[6].g},${/*stateColor*/ ctx[6].b});
-					 --text: rgb(${/*textColor*/ ctx[7].r},${/*textColor*/ ctx[7].g},${/*textColor*/ ctx[7].b});
-					 --dots: rgb(${/*dotColor*/ ctx[8].r},${/*dotColor*/ ctx[8].g},${/*dotColor*/ ctx[8].b});`)) {
+    			if (dirty & /*bgColor, stateColor, textColor, dotColor, maxGrowthFactor, growthDuration*/ 1968 && svg_style_value !== (svg_style_value = `--bg: rgb(${/*bgColor*/ ctx[7].r},${/*bgColor*/ ctx[7].g},${/*bgColor*/ ctx[7].b});
+					 --state: rgb(${/*stateColor*/ ctx[8].r},${/*stateColor*/ ctx[8].g},${/*stateColor*/ ctx[8].b});
+					 --text: rgb(${/*textColor*/ ctx[9].r},${/*textColor*/ ctx[9].g},${/*textColor*/ ctx[9].b});
+					 --dots: rgb(${/*dotColor*/ ctx[10].r},${/*dotColor*/ ctx[10].g},${/*dotColor*/ ctx[10].b});
+					 --max-growth-factor: ${/*maxGrowthFactor*/ ctx[4]};
+					 --growth-duration: ${/*growthDuration*/ ctx[5]}s;`)) {
     				attr_dev(svg, "style", svg_style_value);
     			}
     		},
@@ -6112,6 +6120,8 @@ var app = (function () {
     	let { animLength = 6 } = $$props;
     	let { animSpread = 0.08 } = $$props;
     	let { dotSize = 3 } = $$props;
+    	let { maxGrowthFactor = 1.5 } = $$props;
+    	let { growthDuration = 0.2 } = $$props;
     	let { dotPromise = null } = $$props;
     	let { bgColor = { r: 75, g: 112, b: 179 } } = $$props;
     	let { stateColor = { r: 2, g: 16, b: 54 } } = $$props;
@@ -6129,6 +6139,8 @@ var app = (function () {
     		"animLength",
     		"animSpread",
     		"dotSize",
+    		"maxGrowthFactor",
+    		"growthDuration",
     		"dotPromise",
     		"bgColor",
     		"stateColor",
@@ -6147,11 +6159,13 @@ var app = (function () {
     		if ("animLength" in $$props) $$invalidate(1, animLength = $$props.animLength);
     		if ("animSpread" in $$props) $$invalidate(2, animSpread = $$props.animSpread);
     		if ("dotSize" in $$props) $$invalidate(3, dotSize = $$props.dotSize);
-    		if ("dotPromise" in $$props) $$invalidate(4, dotPromise = $$props.dotPromise);
-    		if ("bgColor" in $$props) $$invalidate(5, bgColor = $$props.bgColor);
-    		if ("stateColor" in $$props) $$invalidate(6, stateColor = $$props.stateColor);
-    		if ("textColor" in $$props) $$invalidate(7, textColor = $$props.textColor);
-    		if ("dotColor" in $$props) $$invalidate(8, dotColor = $$props.dotColor);
+    		if ("maxGrowthFactor" in $$props) $$invalidate(4, maxGrowthFactor = $$props.maxGrowthFactor);
+    		if ("growthDuration" in $$props) $$invalidate(5, growthDuration = $$props.growthDuration);
+    		if ("dotPromise" in $$props) $$invalidate(6, dotPromise = $$props.dotPromise);
+    		if ("bgColor" in $$props) $$invalidate(7, bgColor = $$props.bgColor);
+    		if ("stateColor" in $$props) $$invalidate(8, stateColor = $$props.stateColor);
+    		if ("textColor" in $$props) $$invalidate(9, textColor = $$props.textColor);
+    		if ("dotColor" in $$props) $$invalidate(10, dotColor = $$props.dotColor);
     	};
 
     	$$self.$capture_state = () => {
@@ -6160,6 +6174,8 @@ var app = (function () {
     			animLength,
     			animSpread,
     			dotSize,
+    			maxGrowthFactor,
+    			growthDuration,
     			dotPromise,
     			bgColor,
     			stateColor,
@@ -6177,25 +6193,29 @@ var app = (function () {
     		if ("animLength" in $$props) $$invalidate(1, animLength = $$props.animLength);
     		if ("animSpread" in $$props) $$invalidate(2, animSpread = $$props.animSpread);
     		if ("dotSize" in $$props) $$invalidate(3, dotSize = $$props.dotSize);
-    		if ("dotPromise" in $$props) $$invalidate(4, dotPromise = $$props.dotPromise);
-    		if ("bgColor" in $$props) $$invalidate(5, bgColor = $$props.bgColor);
-    		if ("stateColor" in $$props) $$invalidate(6, stateColor = $$props.stateColor);
-    		if ("textColor" in $$props) $$invalidate(7, textColor = $$props.textColor);
-    		if ("dotColor" in $$props) $$invalidate(8, dotColor = $$props.dotColor);
-    		if ("statePromise" in $$props) $$invalidate(10, statePromise = $$props.statePromise);
-    		if ("width" in $$props) $$invalidate(14, width = $$props.width);
-    		if ("height" in $$props) $$invalidate(15, height = $$props.height);
-    		if ("viewBox" in $$props) $$invalidate(9, viewBox = $$props.viewBox);
+    		if ("maxGrowthFactor" in $$props) $$invalidate(4, maxGrowthFactor = $$props.maxGrowthFactor);
+    		if ("growthDuration" in $$props) $$invalidate(5, growthDuration = $$props.growthDuration);
+    		if ("dotPromise" in $$props) $$invalidate(6, dotPromise = $$props.dotPromise);
+    		if ("bgColor" in $$props) $$invalidate(7, bgColor = $$props.bgColor);
+    		if ("stateColor" in $$props) $$invalidate(8, stateColor = $$props.stateColor);
+    		if ("textColor" in $$props) $$invalidate(9, textColor = $$props.textColor);
+    		if ("dotColor" in $$props) $$invalidate(10, dotColor = $$props.dotColor);
+    		if ("statePromise" in $$props) $$invalidate(12, statePromise = $$props.statePromise);
+    		if ("width" in $$props) $$invalidate(16, width = $$props.width);
+    		if ("height" in $$props) $$invalidate(17, height = $$props.height);
+    		if ("viewBox" in $$props) $$invalidate(11, viewBox = $$props.viewBox);
     	};
 
     	let viewBox;
-    	 $$invalidate(9, viewBox = `0 0 ${width} ${height}`);
+    	 $$invalidate(11, viewBox = `0 0 ${width} ${height}`);
 
     	return [
     		showDots,
     		animLength,
     		animSpread,
     		dotSize,
+    		maxGrowthFactor,
+    		growthDuration,
     		dotPromise,
     		bgColor,
     		stateColor,
@@ -6221,11 +6241,13 @@ var app = (function () {
     			animLength: 1,
     			animSpread: 2,
     			dotSize: 3,
-    			dotPromise: 4,
-    			bgColor: 5,
-    			stateColor: 6,
-    			textColor: 7,
-    			dotColor: 8
+    			maxGrowthFactor: 4,
+    			growthDuration: 5,
+    			dotPromise: 6,
+    			bgColor: 7,
+    			stateColor: 8,
+    			textColor: 9,
+    			dotColor: 10
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -6265,6 +6287,22 @@ var app = (function () {
     	}
 
     	set dotSize(value) {
+    		throw new Error("<Map>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get maxGrowthFactor() {
+    		throw new Error("<Map>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set maxGrowthFactor(value) {
+    		throw new Error("<Map>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get growthDuration() {
+    		throw new Error("<Map>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set growthDuration(value) {
     		throw new Error("<Map>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
@@ -6355,8 +6393,8 @@ var app = (function () {
       return {h, s, l};
     }
 
-    /* src/ColorPicker.svelte generated by Svelte v3.16.5 */
-    const file$1 = "src/ColorPicker.svelte";
+    /* src/components/ColorPicker.svelte generated by Svelte v3.16.5 */
+    const file$1 = "src/components/ColorPicker.svelte";
 
     function create_fragment$1(ctx) {
     	let div0;
@@ -6437,7 +6475,7 @@ var app = (function () {
     			input5 = element("input");
 
     			if (!default_slot) {
-    				add_location(p, file$1, 15, 4, 413);
+    				add_location(p, file$1, 15, 4, 414);
     			}
 
     			attr_dev(div0, "class", div0_class_value = "" + (null_to_empty(`dropdown ${/*reveal*/ ctx[1] ? "reveal" : "hide"}`) + " svelte-1i2tv66"));
@@ -6445,36 +6483,36 @@ var app = (function () {
     			attr_dev(div0, "style", div0_style_value = `--bg: hsl(${/*hsl*/ ctx[2].h}deg, ${/*hsl*/ ctx[2].s}%, ${/*hsl*/ ctx[2].l}%);
               --bg-invert: hsl(${/*hsl*/ ctx[2].h}deg, ${100 - /*hsl*/ ctx[2].l}%, ${/*hsl*/ ctx[2].l > 50 ? 3 : 97}%);`);
 
-    			add_location(div0, file$1, 11, 0, 158);
+    			add_location(div0, file$1, 11, 0, 159);
     			attr_dev(input0, "type", "range");
     			attr_dev(input0, "min", "0");
     			attr_dev(input0, "max", "255");
-    			add_location(input0, file$1, 20, 4, 513);
+    			add_location(input0, file$1, 20, 4, 514);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "min", "0");
     			attr_dev(input1, "max", "255");
-    			add_location(input1, file$1, 21, 4, 575);
-    			add_location(label0, file$1, 19, 2, 498);
+    			add_location(input1, file$1, 21, 4, 576);
+    			add_location(label0, file$1, 19, 2, 499);
     			attr_dev(input2, "type", "range");
     			attr_dev(input2, "min", "0");
     			attr_dev(input2, "max", "255");
-    			add_location(input2, file$1, 24, 4, 664);
+    			add_location(input2, file$1, 24, 4, 665);
     			attr_dev(input3, "type", "number");
     			attr_dev(input3, "min", "0");
     			attr_dev(input3, "max", "255");
-    			add_location(input3, file$1, 25, 4, 726);
-    			add_location(label1, file$1, 23, 2, 647);
+    			add_location(input3, file$1, 25, 4, 727);
+    			add_location(label1, file$1, 23, 2, 648);
     			attr_dev(input4, "type", "range");
     			attr_dev(input4, "min", "0");
     			attr_dev(input4, "max", "255");
-    			add_location(input4, file$1, 28, 4, 814);
+    			add_location(input4, file$1, 28, 4, 815);
     			attr_dev(input5, "type", "number");
     			attr_dev(input5, "min", "0");
     			attr_dev(input5, "max", "255");
-    			add_location(input5, file$1, 29, 4, 876);
-    			add_location(label2, file$1, 27, 2, 798);
+    			add_location(input5, file$1, 29, 4, 877);
+    			add_location(label2, file$1, 27, 2, 799);
     			attr_dev(div1, "class", div1_class_value = "" + (null_to_empty(/*reveal*/ ctx[1] ? "revealed" : "hidden") + " svelte-1i2tv66"));
-    			add_location(div1, file$1, 18, 0, 449);
+    			add_location(div1, file$1, 18, 0, 450);
 
     			dispose = [
     				listen_dev(div0, "click", /*click_handler*/ ctx[5], false, false, false),
@@ -6710,23 +6748,14 @@ var app = (function () {
     	}
     }
 
-    const zipTable = fetch('./assets/zip_lat-long.csv')
-        .then(res => {
-            return res.ok ? res.text() : Promise.reject(res.status);
-        }).then(text => csvParse(text));
+    const zipTable = enqueueCSV('./assets/zip_lat-long.csv');
 
-    const baseData = fetch('./assets/base_zipcodes.csv')
-        .then(res => {
-            return res.ok ? res.text() : Promise.reject(res.status);
-        }).then(text => csvParse(text));
+    const baseData = enqueueCSV('./assets/base_zipcodes.csv');
 
-    const fillerData = fetch('./assets/filler_data.csv')
-        .then(res => {
-            return res.ok ? res.text() : Promise.reject(res.status);
-        }).then(text => csvParse(text))
+    const fillerData = enqueueCSV('./assets/filler_data.csv')
         .then(data => {
             return data.map(d => {
-                return {
+                return { // construct a geoJSON feature
                     type: "Feature",
                     properties: {
                         zipcode: undefined,
@@ -6741,10 +6770,11 @@ var app = (function () {
         });
 
     const talliedBaseData = baseData.then(data => {
-        const flatZips = data.map(d => d.zipcode);
-        const unique = flatZips.filter(isDistinct)
+        const lowercaseData = objKeysToLowercase(data); // handle case that user uploads a CSV with title case column headers
+        const flatZips = lowercaseData.map(d => d.zipcode); // extract zipcodes into flat Array
+        const unique = flatZips.filter(isDistinct) // extract unique values
             .map(d => {
-                return {
+                return { // construct new item with zip and number of occurrances of zip in data
                     zipcode: d,
                     numPeople: flatZips.filter(item => item === d).length
                 }
@@ -6753,36 +6783,49 @@ var app = (function () {
         return unique
     });
 
-    const geoBaseData = Promise.all([zipTable, talliedBaseData, fillerData]).then(([zip2geo, zipcodes, filler]) => {
-        return {
-            "type":"FeatureCollection",
-            "features": [...zipcodes.map(z => {
-                let item = zip2geo.find(geo => geo.zip == z.zipcode);
+    const geoBaseData = Promise.all([zipTable, talliedBaseData, fillerData])
+        .then(([zip2geo, zipcodes, filler]) => {
+            return { // construct geoJSON FeatureCollection, essentially a big table merge
+                "type":"FeatureCollection",
+                "features": [...zipcodes.map(z => {
+                    let item = zip2geo.find(geo => geo.zip == z.zipcode);
 
-                if (!item) return
+                    if (!item) return
 
-                return {
-                    type: "Feature",
-                    properties: {
-                        zipcode: z.zipcode,
-                        numPeople: z.numPeople,
-                    },
-                    geometry: {
-                        type: "Point",
-                        coordinates: [parseFloat(item.longitude), parseFloat(item.latitude)]
+                    return {
+                        type: "Feature",
+                        properties: {
+                            zipcode: z.zipcode,
+                            numPeople: z.numPeople,
+                        },
+                        geometry: {
+                            type: "Point",
+                            coordinates: [parseFloat(item.longitude), parseFloat(item.latitude)]
+                        }
                     }
-                }
-            }).filter(item => !!item),
-            ...filler]
-        }    
+                }).filter(item => !!item),
+                ...filler]
+            }    
     });
 
+    function enqueueCSV(csv) {
+        return fetch(csv)
+            .then(res => {
+                return res.ok ? res.text() : Promise.reject(res.status);
+            }).then(text => csvParse(text))
+    }
+
     function isDistinct(val, index, arr) { return arr.indexOf(val) === index }
+
+    function objKeysToLowercase(obj) {
+        const newObj = {};
+        return Object.keys(obj).map(key => newObj[key.toLowerCase()] = obj[key])
+    }
 
     /* src/App.svelte generated by Svelte v3.16.5 */
     const file$2 = "src/App.svelte";
 
-    // (39:1) <ColorPicker bind:rgb={colors.dotColor}>
+    // (50:1) <ColorPicker bind:rgb={colors.dotColor}>
     function create_default_slot_3(ctx) {
     	let p;
 
@@ -6790,7 +6833,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "Dot Color";
-    			add_location(p, file$2, 39, 2, 1362);
+    			add_location(p, file$2, 50, 2, 1931);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -6804,14 +6847,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3.name,
     		type: "slot",
-    		source: "(39:1) <ColorPicker bind:rgb={colors.dotColor}>",
+    		source: "(50:1) <ColorPicker bind:rgb={colors.dotColor}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (42:1) <ColorPicker bind:rgb={colors.bgColor}>
+    // (53:1) <ColorPicker bind:rgb={colors.bgColor}>
     function create_default_slot_2(ctx) {
     	let p;
 
@@ -6819,7 +6862,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "Background Color";
-    			add_location(p, file$2, 42, 2, 1438);
+    			add_location(p, file$2, 53, 2, 2007);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -6833,14 +6876,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(42:1) <ColorPicker bind:rgb={colors.bgColor}>",
+    		source: "(53:1) <ColorPicker bind:rgb={colors.bgColor}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (45:1) <ColorPicker bind:rgb={colors.stateColor}>
+    // (56:1) <ColorPicker bind:rgb={colors.stateColor}>
     function create_default_slot_1(ctx) {
     	let p;
 
@@ -6848,7 +6891,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "State Color";
-    			add_location(p, file$2, 45, 2, 1524);
+    			add_location(p, file$2, 56, 2, 2093);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -6862,14 +6905,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(45:1) <ColorPicker bind:rgb={colors.stateColor}>",
+    		source: "(56:1) <ColorPicker bind:rgb={colors.stateColor}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (48:1) <ColorPicker bind:rgb={colors.textColor}>
+    // (59:1) <ColorPicker bind:rgb={colors.textColor}>
     function create_default_slot(ctx) {
     	let p;
 
@@ -6877,7 +6920,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "Text Color";
-    			add_location(p, file$2, 48, 2, 1604);
+    			add_location(p, file$2, 59, 2, 2173);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -6891,7 +6934,7 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(48:1) <ColorPicker bind:rgb={colors.textColor}>",
+    		source: "(59:1) <ColorPicker bind:rgb={colors.textColor}>",
     		ctx
     	});
 
@@ -6901,7 +6944,7 @@ var app = (function () {
     function create_fragment$2(ctx) {
     	let updating_showDots;
     	let t0;
-    	let section;
+    	let section0;
     	let button;
     	let t1_value = (/*showDots*/ ctx[1] ? "Hide" : "Show") + "";
     	let t1;
@@ -6910,6 +6953,7 @@ var app = (function () {
     	let label0;
     	let t4;
     	let input0;
+    	let input0_value_value;
     	let t5;
     	let t6_value = /*animParams*/ ctx[0].animLength + "";
     	let t6;
@@ -6918,6 +6962,7 @@ var app = (function () {
     	let label1;
     	let t9;
     	let input1;
+    	let input1_value_value;
     	let t10;
     	let t11_value = /*animParams*/ ctx[0].animSpread + "";
     	let t11;
@@ -6925,16 +6970,34 @@ var app = (function () {
     	let label2;
     	let t13;
     	let input2;
+    	let input2_value_value;
     	let t14;
     	let t15_value = /*animParams*/ ctx[0].dotSize + "";
     	let t15;
     	let t16;
-    	let updating_rgb;
+    	let label3;
     	let t17;
-    	let updating_rgb_1;
+    	let input3;
+    	let input3_value_value;
     	let t18;
-    	let updating_rgb_2;
+    	let t19_value = /*animParams*/ ctx[0].maxGrowthFactor + "";
     	let t19;
+    	let t20;
+    	let label4;
+    	let t21;
+    	let input4;
+    	let input4_value_value;
+    	let t22;
+    	let t23_value = /*animParams*/ ctx[0].growthDuration + "";
+    	let t23;
+    	let t24;
+    	let section1;
+    	let updating_rgb;
+    	let t25;
+    	let updating_rgb_1;
+    	let t26;
+    	let updating_rgb_2;
+    	let t27;
     	let updating_rgb_3;
     	let current;
     	let dispose;
@@ -6958,7 +7021,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(map, "showDots", map_showDots_binding));
 
     	function colorpicker0_rgb_binding(value_1) {
-    		/*colorpicker0_rgb_binding*/ ctx[8].call(null, value_1);
+    		/*colorpicker0_rgb_binding*/ ctx[10].call(null, value_1);
     	}
 
     	let colorpicker0_props = {
@@ -6978,7 +7041,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(colorpicker0, "rgb", colorpicker0_rgb_binding));
 
     	function colorpicker1_rgb_binding(value_2) {
-    		/*colorpicker1_rgb_binding*/ ctx[9].call(null, value_2);
+    		/*colorpicker1_rgb_binding*/ ctx[11].call(null, value_2);
     	}
 
     	let colorpicker1_props = {
@@ -6998,7 +7061,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(colorpicker1, "rgb", colorpicker1_rgb_binding));
 
     	function colorpicker2_rgb_binding(value_3) {
-    		/*colorpicker2_rgb_binding*/ ctx[10].call(null, value_3);
+    		/*colorpicker2_rgb_binding*/ ctx[12].call(null, value_3);
     	}
 
     	let colorpicker2_props = {
@@ -7018,7 +7081,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(colorpicker2, "rgb", colorpicker2_rgb_binding));
 
     	function colorpicker3_rgb_binding(value_4) {
-    		/*colorpicker3_rgb_binding*/ ctx[11].call(null, value_4);
+    		/*colorpicker3_rgb_binding*/ ctx[13].call(null, value_4);
     	}
 
     	let colorpicker3_props = {
@@ -7041,7 +7104,7 @@ var app = (function () {
     		c: function create() {
     			create_component(map.$$.fragment);
     			t0 = space();
-    			section = element("section");
+    			section0 = element("section");
     			button = element("button");
     			t1 = text(t1_value);
     			t2 = text(" Dots");
@@ -7060,45 +7123,77 @@ var app = (function () {
     			t11 = text(t11_value);
     			t12 = space();
     			label2 = element("label");
-    			t13 = text("Dot Size\n\t\t");
+    			t13 = text("Base Dot Size\n\t\t");
     			input2 = element("input");
     			t14 = space();
     			t15 = text(t15_value);
     			t16 = space();
-    			create_component(colorpicker0.$$.fragment);
-    			t17 = space();
-    			create_component(colorpicker1.$$.fragment);
+    			label3 = element("label");
+    			t17 = text("Max Dot Size\n\t\t");
+    			input3 = element("input");
     			t18 = space();
+    			t19 = text(t19_value);
+    			t20 = space();
+    			label4 = element("label");
+    			t21 = text("Growth Duration\n\t\t");
+    			input4 = element("input");
+    			t22 = space();
+    			t23 = text(t23_value);
+    			t24 = space();
+    			section1 = element("section");
+    			create_component(colorpicker0.$$.fragment);
+    			t25 = space();
+    			create_component(colorpicker1.$$.fragment);
+    			t26 = space();
     			create_component(colorpicker2.$$.fragment);
-    			t19 = space();
+    			t27 = space();
     			create_component(colorpicker3.$$.fragment);
-    			add_location(button, file$2, 25, 1, 656);
+    			attr_dev(button, "class", "show-dots svelte-1cmbgg6");
+    			add_location(button, file$2, 26, 1, 656);
     			attr_dev(input0, "type", "range");
     			attr_dev(input0, "min", "1");
     			attr_dev(input0, "max", "10");
     			attr_dev(input0, "step", "0.1");
-    			input0.value = "6";
-    			add_location(input0, file$2, 27, 2, 786);
-    			attr_dev(label0, "class", "range-group svelte-3k6xbw");
-    			add_location(label0, file$2, 26, 1, 748);
+    			input0.value = input0_value_value = /*animParams*/ ctx[0].animLength;
+    			add_location(input0, file$2, 28, 2, 804);
+    			attr_dev(label0, "class", "range-group svelte-1cmbgg6");
+    			add_location(label0, file$2, 27, 1, 766);
     			attr_dev(input1, "type", "range");
     			attr_dev(input1, "min", "0");
     			attr_dev(input1, "max", "1");
     			attr_dev(input1, "step", "0.01");
-    			input1.value = "0.08";
-    			add_location(input1, file$2, 31, 2, 981);
-    			attr_dev(label1, "class", "range-group svelte-3k6xbw");
-    			add_location(label1, file$2, 30, 1, 945);
+    			input1.value = input1_value_value = /*animParams*/ ctx[0].animSpread;
+    			add_location(input1, file$2, 32, 2, 1021);
+    			attr_dev(label1, "class", "range-group svelte-1cmbgg6");
+    			add_location(label1, file$2, 31, 1, 985);
     			attr_dev(input2, "type", "range");
     			attr_dev(input2, "min", "1");
     			attr_dev(input2, "max", "7");
     			attr_dev(input2, "step", "0.1");
-    			input2.value = "2.5";
-    			add_location(input2, file$2, 35, 2, 1173);
-    			attr_dev(label2, "class", "range-group svelte-3k6xbw");
-    			add_location(label2, file$2, 34, 1, 1135);
-    			attr_dev(section, "class", "svelte-3k6xbw");
-    			add_location(section, file$2, 24, 0, 645);
+    			input2.value = input2_value_value = /*animParams*/ ctx[0].dotSize;
+    			add_location(input2, file$2, 36, 2, 1237);
+    			attr_dev(label2, "class", "range-group svelte-1cmbgg6");
+    			add_location(label2, file$2, 35, 1, 1194);
+    			attr_dev(input3, "type", "range");
+    			attr_dev(input3, "min", "1.1");
+    			attr_dev(input3, "max", "4.5");
+    			attr_dev(input3, "step", "0.01");
+    			input3.value = input3_value_value = /*animParams*/ ctx[0].maxGrowthFactor;
+    			add_location(input3, file$2, 40, 2, 1442);
+    			attr_dev(label3, "class", "range-group svelte-1cmbgg6");
+    			add_location(label3, file$2, 39, 1, 1400);
+    			attr_dev(input4, "type", "range");
+    			attr_dev(input4, "min", ".05");
+    			attr_dev(input4, "max", ".5");
+    			attr_dev(input4, "step", "0.01");
+    			input4.value = input4_value_value = /*animParams*/ ctx[0].growthDuration;
+    			add_location(input4, file$2, 44, 2, 1679);
+    			attr_dev(label4, "class", "range-group svelte-1cmbgg6");
+    			add_location(label4, file$2, 43, 1, 1634);
+    			attr_dev(section0, "class", "svelte-1cmbgg6");
+    			add_location(section0, file$2, 25, 0, 645);
+    			attr_dev(section1, "class", "svelte-1cmbgg6");
+    			add_location(section1, file$2, 48, 0, 1877);
 
     			dispose = [
     				listen_dev(button, "click", /*click_handler*/ ctx[4], false, false, false),
@@ -7131,6 +7226,26 @@ var app = (function () {
     					false,
     					false,
     					false
+    				),
+    				listen_dev(
+    					input3,
+    					"input",
+    					function () {
+    						/*input_handler_3*/ ctx[8].apply(this, arguments);
+    					},
+    					false,
+    					false,
+    					false
+    				),
+    				listen_dev(
+    					input4,
+    					"input",
+    					function () {
+    						/*input_handler_4*/ ctx[9].apply(this, arguments);
+    					},
+    					false,
+    					false,
+    					false
     				)
     			];
     		},
@@ -7140,37 +7255,50 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			mount_component(map, target, anchor);
     			insert_dev(target, t0, anchor);
-    			insert_dev(target, section, anchor);
-    			append_dev(section, button);
+    			insert_dev(target, section0, anchor);
+    			append_dev(section0, button);
     			append_dev(button, t1);
     			append_dev(button, t2);
-    			append_dev(section, t3);
-    			append_dev(section, label0);
+    			append_dev(section0, t3);
+    			append_dev(section0, label0);
     			append_dev(label0, t4);
     			append_dev(label0, input0);
     			append_dev(label0, t5);
     			append_dev(label0, t6);
     			append_dev(label0, t7);
-    			append_dev(section, t8);
-    			append_dev(section, label1);
+    			append_dev(section0, t8);
+    			append_dev(section0, label1);
     			append_dev(label1, t9);
     			append_dev(label1, input1);
     			append_dev(label1, t10);
     			append_dev(label1, t11);
-    			append_dev(section, t12);
-    			append_dev(section, label2);
+    			append_dev(section0, t12);
+    			append_dev(section0, label2);
     			append_dev(label2, t13);
     			append_dev(label2, input2);
     			append_dev(label2, t14);
     			append_dev(label2, t15);
-    			append_dev(section, t16);
-    			mount_component(colorpicker0, section, null);
-    			append_dev(section, t17);
-    			mount_component(colorpicker1, section, null);
-    			append_dev(section, t18);
-    			mount_component(colorpicker2, section, null);
-    			append_dev(section, t19);
-    			mount_component(colorpicker3, section, null);
+    			append_dev(section0, t16);
+    			append_dev(section0, label3);
+    			append_dev(label3, t17);
+    			append_dev(label3, input3);
+    			append_dev(label3, t18);
+    			append_dev(label3, t19);
+    			append_dev(section0, t20);
+    			append_dev(section0, label4);
+    			append_dev(label4, t21);
+    			append_dev(label4, input4);
+    			append_dev(label4, t22);
+    			append_dev(label4, t23);
+    			insert_dev(target, t24, anchor);
+    			insert_dev(target, section1, anchor);
+    			mount_component(colorpicker0, section1, null);
+    			append_dev(section1, t25);
+    			mount_component(colorpicker1, section1, null);
+    			append_dev(section1, t26);
+    			mount_component(colorpicker2, section1, null);
+    			append_dev(section1, t27);
+    			mount_component(colorpicker3, section1, null);
     			current = true;
     		},
     		p: function update(new_ctx, [dirty]) {
@@ -7192,12 +7320,39 @@ var app = (function () {
 
     			map.$set(map_changes);
     			if ((!current || dirty & /*showDots*/ 2) && t1_value !== (t1_value = (/*showDots*/ ctx[1] ? "Hide" : "Show") + "")) set_data_dev(t1, t1_value);
+
+    			if (!current || dirty & /*animParams*/ 1 && input0_value_value !== (input0_value_value = /*animParams*/ ctx[0].animLength)) {
+    				prop_dev(input0, "value", input0_value_value);
+    			}
+
     			if ((!current || dirty & /*animParams*/ 1) && t6_value !== (t6_value = /*animParams*/ ctx[0].animLength + "")) set_data_dev(t6, t6_value);
+
+    			if (!current || dirty & /*animParams*/ 1 && input1_value_value !== (input1_value_value = /*animParams*/ ctx[0].animSpread)) {
+    				prop_dev(input1, "value", input1_value_value);
+    			}
+
     			if ((!current || dirty & /*animParams*/ 1) && t11_value !== (t11_value = /*animParams*/ ctx[0].animSpread + "")) set_data_dev(t11, t11_value);
+
+    			if (!current || dirty & /*animParams*/ 1 && input2_value_value !== (input2_value_value = /*animParams*/ ctx[0].dotSize)) {
+    				prop_dev(input2, "value", input2_value_value);
+    			}
+
     			if ((!current || dirty & /*animParams*/ 1) && t15_value !== (t15_value = /*animParams*/ ctx[0].dotSize + "")) set_data_dev(t15, t15_value);
+
+    			if (!current || dirty & /*animParams*/ 1 && input3_value_value !== (input3_value_value = /*animParams*/ ctx[0].maxGrowthFactor)) {
+    				prop_dev(input3, "value", input3_value_value);
+    			}
+
+    			if ((!current || dirty & /*animParams*/ 1) && t19_value !== (t19_value = /*animParams*/ ctx[0].maxGrowthFactor + "")) set_data_dev(t19, t19_value);
+
+    			if (!current || dirty & /*animParams*/ 1 && input4_value_value !== (input4_value_value = /*animParams*/ ctx[0].growthDuration)) {
+    				prop_dev(input4, "value", input4_value_value);
+    			}
+
+    			if ((!current || dirty & /*animParams*/ 1) && t23_value !== (t23_value = /*animParams*/ ctx[0].growthDuration + "")) set_data_dev(t23, t23_value);
     			const colorpicker0_changes = {};
 
-    			if (dirty & /*$$scope*/ 4096) {
+    			if (dirty & /*$$scope*/ 16384) {
     				colorpicker0_changes.$$scope = { dirty, ctx };
     			}
 
@@ -7210,7 +7365,7 @@ var app = (function () {
     			colorpicker0.$set(colorpicker0_changes);
     			const colorpicker1_changes = {};
 
-    			if (dirty & /*$$scope*/ 4096) {
+    			if (dirty & /*$$scope*/ 16384) {
     				colorpicker1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -7223,7 +7378,7 @@ var app = (function () {
     			colorpicker1.$set(colorpicker1_changes);
     			const colorpicker2_changes = {};
 
-    			if (dirty & /*$$scope*/ 4096) {
+    			if (dirty & /*$$scope*/ 16384) {
     				colorpicker2_changes.$$scope = { dirty, ctx };
     			}
 
@@ -7236,7 +7391,7 @@ var app = (function () {
     			colorpicker2.$set(colorpicker2_changes);
     			const colorpicker3_changes = {};
 
-    			if (dirty & /*$$scope*/ 4096) {
+    			if (dirty & /*$$scope*/ 16384) {
     				colorpicker3_changes.$$scope = { dirty, ctx };
     			}
 
@@ -7268,7 +7423,9 @@ var app = (function () {
     		d: function destroy(detaching) {
     			destroy_component(map, detaching);
     			if (detaching) detach_dev(t0);
-    			if (detaching) detach_dev(section);
+    			if (detaching) detach_dev(section0);
+    			if (detaching) detach_dev(t24);
+    			if (detaching) detach_dev(section1);
     			destroy_component(colorpicker0);
     			destroy_component(colorpicker1);
     			destroy_component(colorpicker2);
@@ -7292,7 +7449,9 @@ var app = (function () {
     	let animParams = {
     		animLength: 6,
     		animSpread: 0.2,
-    		dotSize: 3
+    		dotSize: 3,
+    		maxGrowthFactor: 1.5,
+    		growthDuration: 0.2
     	};
 
     	let showDots = false;
@@ -7304,8 +7463,6 @@ var app = (function () {
     		textColor: { r: 234, g: 245, b: 255 }
     	};
 
-    	geoBaseData.then(data => console.log("data fetched! ", data));
-
     	function map_showDots_binding(value) {
     		showDots = value;
     		$$invalidate(1, showDots);
@@ -7315,6 +7472,8 @@ var app = (function () {
     	const input_handler = e => $$invalidate(0, animParams.animLength = e.target.value, animParams);
     	const input_handler_1 = e => $$invalidate(0, animParams.animSpread = e.target.value, animParams);
     	const input_handler_2 = e => $$invalidate(0, animParams.dotSize = e.target.value, animParams);
+    	const input_handler_3 = e => $$invalidate(0, animParams.maxGrowthFactor = e.target.value, animParams);
+    	const input_handler_4 = e => $$invalidate(0, animParams.growthDuration = e.target.value, animParams);
 
     	function colorpicker0_rgb_binding(value_1) {
     		colors.dotColor = value_1;
@@ -7355,6 +7514,8 @@ var app = (function () {
     		input_handler,
     		input_handler_1,
     		input_handler_2,
+    		input_handler_3,
+    		input_handler_4,
     		colorpicker0_rgb_binding,
     		colorpicker1_rgb_binding,
     		colorpicker2_rgb_binding,
