@@ -1,16 +1,20 @@
 <script>
 	import Map from './Map.svelte'
 	import ColorPicker from './components/ColorPicker.svelte'
-	import { geoBaseData as dotPromise } from './zipToGeo.js'
+	import { mergedGeoData, reportGeoData, fillerGeoData } from './zipToGeo.js'
 	
+	const datasets = [mergedGeoData,reportGeoData,fillerGeoData]
+	const datasetLabels = ['Merged', 'Report', 'Filler']
+	let datasetIndex = 0
+	$: dotPromise = datasets[datasetIndex]
 	let showDots = false
 
 	let animParams = {
-			animLength: 6,
-			animSpread: 0.2,
-			dotSize: 3,
-			maxGrowthFactor: 1.5,
-			growthDuration: .2,
+			animLength: 5.8,
+			animSpread: 0.18,
+			dotSize: 3.2,
+			maxGrowthFactor: 2.03,
+			growthDuration: .24,
 		}
 	const rangeUI = [
 		{param: 'animLength', label: 'Duration', labelSuffix: ' s', min: 1, max: 10, step: 0.1,},
@@ -47,6 +51,10 @@
 		{animParams[range.param] + range.labelSuffix}
 	</label>
 	{/each}
+	<label>Dataset
+		<input type='range' min='0' max='2' step='1' value='0' on:input={e => datasetIndex = e.target.value}>
+		{ datasetLabels[datasetIndex] }
+	</label>
 </section>
 <section>
 	{#each colorUI as picker, i (i)}

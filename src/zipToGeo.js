@@ -1,10 +1,10 @@
 import { csvParse } from 'd3'
 
-export const zipTable = enqueueCSV('./assets/zip_lat-long.csv')
+const zipTable = enqueueCSV('./assets/zip_lat-long.csv')
 
-export const baseData = enqueueCSV('./assets/base_zipcodes.csv')
+const baseData = enqueueCSV('./assets/base_zipcodes.csv')
 
-export const fillerData = enqueueCSV('./assets/filler_data.csv')
+const fillerData = enqueueCSV('./assets/filler_data.csv')
     .then(data => {
         return data.map(d => {
             return { // construct a geoJSON feature
@@ -19,9 +19,9 @@ export const fillerData = enqueueCSV('./assets/filler_data.csv')
                 }
             }
         })
-    })
+})
 
-export const talliedBaseData = baseData.then(data => {
+const talliedBaseData = baseData.then(data => {
     const lowercaseData = objKeysToLowercase(data) // handle case that user uploads a CSV with title case column headers
     const flatZips = lowercaseData.map(d => d.zipcode) // extract zipcodes into flat Array
     const unique = flatZips.filter(isDistinct) // extract unique values
@@ -35,7 +35,42 @@ export const talliedBaseData = baseData.then(data => {
     return unique
 })
 
-export const geoBaseData = Promise.all([zipTable, talliedBaseData, fillerData])
+// Making filler data available by itself
+export const fillerGeoData = Promise.all([zipTable, fillerData]).then(([zip2geo, filler]) => {
+    return { // construct geoJSON FeatureCollection, essentially a big table merge
+        "type":"FeatureCollection",
+        "features": [...filler]
+    }   
+})
+
+// Making report data available by itself
+export const reportGeoData = Promise.all([zipTable, talliedBaseData])
+    .then(([zip2geo, zipcodes]) => {
+        return { // construct geoJSON FeatureCollection, essentially a big table merge
+            "type":"FeatureCollection",
+            "features": [...zipcodes.map(z => {
+                    let item = zip2geo.find(geo => geo.zip == z.zipcode)
+
+                    if (!item) return
+
+                    return {
+                        type: "Feature",
+                        properties: {
+                            zipcode: z.zipcode,
+                            numPeople: z.numPeople,
+                        },
+                        geometry: {
+                            type: "Point",
+                            coordinates: [parseFloat(item.longitude), parseFloat(item.latitude)]
+                        }
+                    }
+                }).filter(item => !!item),
+            ]
+        }   
+})
+
+// Merged filler and report data
+export const mergedGeoData = Promise.all([zipTable, talliedBaseData, fillerData])
     .then(([zip2geo, zipcodes, filler]) => {
         return { // construct geoJSON FeatureCollection, essentially a big table merge
             "type":"FeatureCollection",

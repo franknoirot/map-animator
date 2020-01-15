@@ -6772,7 +6772,7 @@ var app = (function () {
                     }
                 }
             })
-        });
+    });
 
     const talliedBaseData = baseData.then(data => {
         const lowercaseData = objKeysToLowercase(data); // handle case that user uploads a CSV with title case column headers
@@ -6788,7 +6788,42 @@ var app = (function () {
         return unique
     });
 
-    const geoBaseData = Promise.all([zipTable, talliedBaseData, fillerData])
+    // Making filler data available by itself
+    const fillerGeoData = Promise.all([zipTable, fillerData]).then(([zip2geo, filler]) => {
+        return { // construct geoJSON FeatureCollection, essentially a big table merge
+            "type":"FeatureCollection",
+            "features": [...filler]
+        }   
+    });
+
+    // Making report data available by itself
+    const reportGeoData = Promise.all([zipTable, talliedBaseData])
+        .then(([zip2geo, zipcodes]) => {
+            return { // construct geoJSON FeatureCollection, essentially a big table merge
+                "type":"FeatureCollection",
+                "features": [...zipcodes.map(z => {
+                        let item = zip2geo.find(geo => geo.zip == z.zipcode);
+
+                        if (!item) return
+
+                        return {
+                            type: "Feature",
+                            properties: {
+                                zipcode: z.zipcode,
+                                numPeople: z.numPeople,
+                            },
+                            geometry: {
+                                type: "Point",
+                                coordinates: [parseFloat(item.longitude), parseFloat(item.latitude)]
+                            }
+                        }
+                    }).filter(item => !!item),
+                ]
+            }   
+    });
+
+    // Merged filler and report data
+    const mergedGeoData = Promise.all([zipTable, talliedBaseData, fillerData])
         .then(([zip2geo, zipcodes, filler]) => {
             return { // construct geoJSON FeatureCollection, essentially a big table merge
                 "type":"FeatureCollection",
@@ -6834,22 +6869,22 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[9] = list[i];
-    	child_ctx[11] = i;
+    	child_ctx[14] = list[i];
+    	child_ctx[16] = i;
     	return child_ctx;
     }
 
     function get_each_context_1$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[12] = list[i];
-    	child_ctx[11] = i;
+    	child_ctx[17] = list[i];
+    	child_ctx[16] = i;
     	return child_ctx;
     }
 
-    // (43:1) {#each rangeUI as range, i (i)}
+    // (47:1) {#each rangeUI as range, i (i)}
     function create_each_block_1$1(key_1, ctx) {
     	let label;
-    	let t0_value = /*range*/ ctx[12].label + "";
+    	let t0_value = /*range*/ ctx[17].label + "";
     	let t0;
     	let t1;
     	let input;
@@ -6858,13 +6893,12 @@ var app = (function () {
     	let input_step_value;
     	let input_value_value;
     	let t2;
-    	let t3_value = /*animParams*/ ctx[1][/*range*/ ctx[12].param] + /*range*/ ctx[12].labelSuffix + "";
+    	let t3_value = /*animParams*/ ctx[2][/*range*/ ctx[17].param] + /*range*/ ctx[17].labelSuffix + "";
     	let t3;
-    	let t4;
     	let dispose;
 
     	function input_handler(...args) {
-    		return /*input_handler*/ ctx[7](/*range*/ ctx[12], ...args);
+    		return /*input_handler*/ ctx[11](/*range*/ ctx[17], ...args);
     	}
 
     	const block = {
@@ -6877,15 +6911,14 @@ var app = (function () {
     			input = element("input");
     			t2 = space();
     			t3 = text(t3_value);
-    			t4 = space();
     			attr_dev(input, "type", "range");
-    			attr_dev(input, "min", input_min_value = /*range*/ ctx[12].min);
-    			attr_dev(input, "max", input_max_value = /*range*/ ctx[12].max);
-    			attr_dev(input, "step", input_step_value = /*range*/ ctx[12].step);
-    			input.value = input_value_value = /*animParams*/ ctx[1][/*range*/ ctx[12].param];
-    			add_location(input, file$2, 44, 2, 1557);
+    			attr_dev(input, "min", input_min_value = /*range*/ ctx[17].min);
+    			attr_dev(input, "max", input_max_value = /*range*/ ctx[17].max);
+    			attr_dev(input, "step", input_step_value = /*range*/ ctx[17].step);
+    			input.value = input_value_value = /*animParams*/ ctx[2][/*range*/ ctx[17].param];
+    			add_location(input, file$2, 48, 2, 1760);
     			attr_dev(label, "class", "range-group svelte-oyz1h0");
-    			add_location(label, file$2, 43, 1, 1512);
+    			add_location(label, file$2, 47, 1, 1715);
 
     			dispose = listen_dev(
     				input,
@@ -6907,16 +6940,15 @@ var app = (function () {
     			append_dev(label, input);
     			append_dev(label, t2);
     			append_dev(label, t3);
-    			append_dev(label, t4);
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*animParams*/ 2 && input_value_value !== (input_value_value = /*animParams*/ ctx[1][/*range*/ ctx[12].param])) {
+    			if (dirty & /*animParams*/ 4 && input_value_value !== (input_value_value = /*animParams*/ ctx[2][/*range*/ ctx[17].param])) {
     				prop_dev(input, "value", input_value_value);
     			}
 
-    			if (dirty & /*animParams*/ 2 && t3_value !== (t3_value = /*animParams*/ ctx[1][/*range*/ ctx[12].param] + /*range*/ ctx[12].labelSuffix + "")) set_data_dev(t3, t3_value);
+    			if (dirty & /*animParams*/ 4 && t3_value !== (t3_value = /*animParams*/ ctx[2][/*range*/ ctx[17].param] + /*range*/ ctx[17].labelSuffix + "")) set_data_dev(t3, t3_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(label);
@@ -6928,24 +6960,24 @@ var app = (function () {
     		block,
     		id: create_each_block_1$1.name,
     		type: "each",
-    		source: "(43:1) {#each rangeUI as range, i (i)}",
+    		source: "(47:1) {#each rangeUI as range, i (i)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (54:2) <ColorPicker bind:rgb={ colors[picker.param] }>
+    // (62:2) <ColorPicker bind:rgb={ colors[picker.param] }>
     function create_default_slot(ctx) {
     	let p;
-    	let t_value = /*picker*/ ctx[9].label + "";
+    	let t_value = /*picker*/ ctx[14].label + "";
     	let t;
 
     	const block = {
     		c: function create() {
     			p = element("p");
     			t = text(t_value);
-    			add_location(p, file$2, 54, 3, 1903);
+    			add_location(p, file$2, 62, 3, 2270);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -6961,14 +6993,14 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(54:2) <ColorPicker bind:rgb={ colors[picker.param] }>",
+    		source: "(62:2) <ColorPicker bind:rgb={ colors[picker.param] }>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (52:1) {#each colorUI as picker, i (i)}
+    // (60:1) {#each colorUI as picker, i (i)}
     function create_each_block$1(key_1, ctx) {
     	let div;
     	let updating_rgb;
@@ -6976,7 +7008,7 @@ var app = (function () {
     	let current;
 
     	function colorpicker_rgb_binding(value) {
-    		/*colorpicker_rgb_binding*/ ctx[8].call(null, value, /*picker*/ ctx[9]);
+    		/*colorpicker_rgb_binding*/ ctx[13].call(null, value, /*picker*/ ctx[14]);
     	}
 
     	let colorpicker_props = {
@@ -6984,8 +7016,8 @@ var app = (function () {
     		$$scope: { ctx }
     	};
 
-    	if (/*colors*/ ctx[2][/*picker*/ ctx[9].param] !== void 0) {
-    		colorpicker_props.rgb = /*colors*/ ctx[2][/*picker*/ ctx[9].param];
+    	if (/*colors*/ ctx[3][/*picker*/ ctx[14].param] !== void 0) {
+    		colorpicker_props.rgb = /*colors*/ ctx[3][/*picker*/ ctx[14].param];
     	}
 
     	const colorpicker = new ColorPicker({ props: colorpicker_props, $$inline: true });
@@ -6998,7 +7030,7 @@ var app = (function () {
     			div = element("div");
     			create_component(colorpicker.$$.fragment);
     			t = space();
-    			add_location(div, file$2, 52, 1, 1844);
+    			add_location(div, file$2, 60, 1, 2211);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -7011,13 +7043,13 @@ var app = (function () {
     			ctx = new_ctx;
     			const colorpicker_changes = {};
 
-    			if (dirty & /*$$scope*/ 16384) {
+    			if (dirty & /*$$scope*/ 524288) {
     				colorpicker_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_rgb && dirty & /*colors, colorUI*/ 20) {
+    			if (!updating_rgb && dirty & /*colors, colorUI*/ 136) {
     				updating_rgb = true;
-    				colorpicker_changes.rgb = /*colors*/ ctx[2][/*picker*/ ctx[9].param];
+    				colorpicker_changes.rgb = /*colors*/ ctx[3][/*picker*/ ctx[14].param];
     				add_flush_callback(() => updating_rgb = false);
     			}
 
@@ -7042,7 +7074,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(52:1) {#each colorUI as picker, i (i)}",
+    		source: "(60:1) {#each colorUI as picker, i (i)}",
     		ctx
     	});
 
@@ -7054,22 +7086,34 @@ var app = (function () {
     	let t0;
     	let section0;
     	let button;
-    	let t1_value = (/*showDots*/ ctx[0] ? "Hide" : "Show") + "";
+    	let t1_value = (/*showDots*/ ctx[1] ? "Hide" : "Show") + "";
     	let t1;
     	let t2;
     	let t3;
     	let each_blocks_1 = [];
     	let each0_lookup = new Map_1$1();
     	let t4;
+    	let label;
+    	let t5;
+    	let input;
+    	let t6;
+    	let t7_value = /*datasetLabels*/ ctx[5][/*datasetIndex*/ ctx[0]] + "";
+    	let t7;
+    	let t8;
     	let section1;
     	let each_blocks = [];
     	let each1_lookup = new Map_1$1();
     	let current;
     	let dispose;
-    	const map_spread_levels = [{ dotPromise: geoBaseData }, /*animParams*/ ctx[1], /*colors*/ ctx[2]];
+
+    	const map_spread_levels = [
+    		{ dotPromise: /*dotPromise*/ ctx[4] },
+    		/*animParams*/ ctx[2],
+    		/*colors*/ ctx[3]
+    	];
 
     	function map_showDots_binding(value) {
-    		/*map_showDots_binding*/ ctx[5].call(null, value);
+    		/*map_showDots_binding*/ ctx[9].call(null, value);
     	}
 
     	let map_props = {};
@@ -7078,14 +7122,14 @@ var app = (function () {
     		map_props = assign(map_props, map_spread_levels[i]);
     	}
 
-    	if (/*showDots*/ ctx[0] !== void 0) {
-    		map_props.showDots = /*showDots*/ ctx[0];
+    	if (/*showDots*/ ctx[1] !== void 0) {
+    		map_props.showDots = /*showDots*/ ctx[1];
     	}
 
     	const map = new Map$2({ props: map_props, $$inline: true });
     	binding_callbacks.push(() => bind(map, "showDots", map_showDots_binding));
-    	let each_value_1 = /*rangeUI*/ ctx[3];
-    	const get_key = ctx => /*i*/ ctx[11];
+    	let each_value_1 = /*rangeUI*/ ctx[6];
+    	const get_key = ctx => /*i*/ ctx[16];
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
     		let child_ctx = get_each_context_1$1(ctx, each_value_1, i);
@@ -7093,8 +7137,8 @@ var app = (function () {
     		each0_lookup.set(key, each_blocks_1[i] = create_each_block_1$1(key, child_ctx));
     	}
 
-    	let each_value = /*colorUI*/ ctx[4];
-    	const get_key_1 = ctx => /*i*/ ctx[11];
+    	let each_value = /*colorUI*/ ctx[7];
+    	const get_key_1 = ctx => /*i*/ ctx[16];
 
     	for (let i = 0; i < each_value.length; i += 1) {
     		let child_ctx = get_each_context$1(ctx, each_value, i);
@@ -7117,6 +7161,12 @@ var app = (function () {
     			}
 
     			t4 = space();
+    			label = element("label");
+    			t5 = text("Dataset\n\t\t");
+    			input = element("input");
+    			t6 = space();
+    			t7 = text(t7_value);
+    			t8 = space();
     			section1 = element("section");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -7124,12 +7174,32 @@ var app = (function () {
     			}
 
     			attr_dev(button, "class", "show-dots svelte-oyz1h0");
-    			add_location(button, file$2, 41, 1, 1369);
+    			add_location(button, file$2, 45, 1, 1572);
+    			attr_dev(input, "type", "range");
+    			attr_dev(input, "min", "0");
+    			attr_dev(input, "max", "2");
+    			attr_dev(input, "step", "1");
+    			input.value = "0";
+    			add_location(input, file$2, 54, 2, 2009);
+    			add_location(label, file$2, 53, 1, 1992);
     			attr_dev(section0, "class", "svelte-oyz1h0");
-    			add_location(section0, file$2, 40, 0, 1358);
+    			add_location(section0, file$2, 44, 0, 1561);
     			attr_dev(section1, "class", "svelte-oyz1h0");
-    			add_location(section1, file$2, 50, 0, 1799);
-    			dispose = listen_dev(button, "click", /*click_handler*/ ctx[6], false, false, false);
+    			add_location(section1, file$2, 58, 0, 2166);
+
+    			dispose = [
+    				listen_dev(button, "click", /*click_handler*/ ctx[10], false, false, false),
+    				listen_dev(
+    					input,
+    					"input",
+    					function () {
+    						/*input_handler_1*/ ctx[12].apply(this, arguments);
+    					},
+    					false,
+    					false,
+    					false
+    				)
+    			];
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -7147,7 +7217,13 @@ var app = (function () {
     				each_blocks_1[i].m(section0, null);
     			}
 
-    			insert_dev(target, t4, anchor);
+    			append_dev(section0, t4);
+    			append_dev(section0, label);
+    			append_dev(label, t5);
+    			append_dev(label, input);
+    			append_dev(label, t6);
+    			append_dev(label, t7);
+    			insert_dev(target, t8, anchor);
     			insert_dev(target, section1, anchor);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -7156,26 +7232,29 @@ var app = (function () {
 
     			current = true;
     		},
-    		p: function update(ctx, [dirty]) {
-    			const map_changes = (dirty & /*dotPromise, animParams, colors*/ 6)
+    		p: function update(new_ctx, [dirty]) {
+    			ctx = new_ctx;
+
+    			const map_changes = (dirty & /*dotPromise, animParams, colors*/ 28)
     			? get_spread_update(map_spread_levels, [
-    					dirty & /*dotPromise*/ 0 && ({ dotPromise: geoBaseData }),
-    					dirty & /*animParams*/ 2 && get_spread_object(/*animParams*/ ctx[1]),
-    					dirty & /*colors*/ 4 && get_spread_object(/*colors*/ ctx[2])
+    					dirty & /*dotPromise*/ 16 && ({ dotPromise: /*dotPromise*/ ctx[4] }),
+    					dirty & /*animParams*/ 4 && get_spread_object(/*animParams*/ ctx[2]),
+    					dirty & /*colors*/ 8 && get_spread_object(/*colors*/ ctx[3])
     				])
     			: {};
 
-    			if (!updating_showDots && dirty & /*showDots*/ 1) {
+    			if (!updating_showDots && dirty & /*showDots*/ 2) {
     				updating_showDots = true;
-    				map_changes.showDots = /*showDots*/ ctx[0];
+    				map_changes.showDots = /*showDots*/ ctx[1];
     				add_flush_callback(() => updating_showDots = false);
     			}
 
     			map.$set(map_changes);
-    			if ((!current || dirty & /*showDots*/ 1) && t1_value !== (t1_value = (/*showDots*/ ctx[0] ? "Hide" : "Show") + "")) set_data_dev(t1, t1_value);
-    			const each_value_1 = /*rangeUI*/ ctx[3];
-    			each_blocks_1 = update_keyed_each(each_blocks_1, dirty, get_key, 1, ctx, each_value_1, each0_lookup, section0, destroy_block, create_each_block_1$1, null, get_each_context_1$1);
-    			const each_value = /*colorUI*/ ctx[4];
+    			if ((!current || dirty & /*showDots*/ 2) && t1_value !== (t1_value = (/*showDots*/ ctx[1] ? "Hide" : "Show") + "")) set_data_dev(t1, t1_value);
+    			const each_value_1 = /*rangeUI*/ ctx[6];
+    			each_blocks_1 = update_keyed_each(each_blocks_1, dirty, get_key, 1, ctx, each_value_1, each0_lookup, section0, destroy_block, create_each_block_1$1, t4, get_each_context_1$1);
+    			if ((!current || dirty & /*datasetIndex*/ 1) && t7_value !== (t7_value = /*datasetLabels*/ ctx[5][/*datasetIndex*/ ctx[0]] + "")) set_data_dev(t7, t7_value);
+    			const each_value = /*colorUI*/ ctx[7];
     			group_outros();
     			each_blocks = update_keyed_each(each_blocks, dirty, get_key_1, 1, ctx, each_value, each1_lookup, section1, outro_and_destroy_block, create_each_block$1, null, get_each_context$1);
     			check_outros();
@@ -7208,14 +7287,14 @@ var app = (function () {
     				each_blocks_1[i].d();
     			}
 
-    			if (detaching) detach_dev(t4);
+    			if (detaching) detach_dev(t8);
     			if (detaching) detach_dev(section1);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].d();
     			}
 
-    			dispose();
+    			run_all(dispose);
     		}
     	};
 
@@ -7231,14 +7310,17 @@ var app = (function () {
     }
 
     function instance$2($$self, $$props, $$invalidate) {
+    	const datasets = [mergedGeoData, reportGeoData, fillerGeoData];
+    	const datasetLabels = ["Merged", "Report", "Filler"];
+    	let datasetIndex = 0;
     	let showDots = false;
 
     	let animParams = {
-    		animLength: 6,
-    		animSpread: 0.2,
-    		dotSize: 3,
-    		maxGrowthFactor: 1.5,
-    		growthDuration: 0.2
+    		animLength: 5.8,
+    		animSpread: 0.18,
+    		dotSize: 3.2,
+    		maxGrowthFactor: 2.03,
+    		growthDuration: 0.24
     	};
 
     	const rangeUI = [
@@ -7306,15 +7388,16 @@ var app = (function () {
 
     	function map_showDots_binding(value) {
     		showDots = value;
-    		$$invalidate(0, showDots);
+    		$$invalidate(1, showDots);
     	}
 
-    	const click_handler = () => $$invalidate(0, showDots = !showDots);
-    	const input_handler = (range, e) => $$invalidate(1, animParams[range.param] = e.target.value, animParams);
+    	const click_handler = () => $$invalidate(1, showDots = !showDots);
+    	const input_handler = (range, e) => $$invalidate(2, animParams[range.param] = e.target.value, animParams);
+    	const input_handler_1 = e => $$invalidate(0, datasetIndex = e.target.value);
 
     	function colorpicker_rgb_binding(value, picker) {
     		colors[picker.param] = value;
-    		$$invalidate(2, colors);
+    		$$invalidate(3, colors);
     	}
 
     	$$self.$capture_state = () => {
@@ -7322,19 +7405,34 @@ var app = (function () {
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ("showDots" in $$props) $$invalidate(0, showDots = $$props.showDots);
-    		if ("animParams" in $$props) $$invalidate(1, animParams = $$props.animParams);
+    		if ("datasetIndex" in $$props) $$invalidate(0, datasetIndex = $$props.datasetIndex);
+    		if ("showDots" in $$props) $$invalidate(1, showDots = $$props.showDots);
+    		if ("animParams" in $$props) $$invalidate(2, animParams = $$props.animParams);
+    		if ("dotPromise" in $$props) $$invalidate(4, dotPromise = $$props.dotPromise);
+    	};
+
+    	let dotPromise;
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*datasetIndex*/ 1) {
+    			 $$invalidate(4, dotPromise = datasets[datasetIndex]);
+    		}
     	};
 
     	return [
+    		datasetIndex,
     		showDots,
     		animParams,
     		colors,
+    		dotPromise,
+    		datasetLabels,
     		rangeUI,
     		colorUI,
+    		datasets,
     		map_showDots_binding,
     		click_handler,
     		input_handler,
+    		input_handler_1,
     		colorpicker_rgb_binding
     	];
     }
