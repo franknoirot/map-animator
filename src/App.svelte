@@ -51,9 +51,12 @@
 		{animParams[range.param] + range.labelSuffix}
 	</label>
 	{/each}
-	<label>Dataset
+	<label style='white-space: nowrap;'>Dataset
 		<input type='range' min='0' max='2' step='1' value='0' on:input={e => datasetIndex = e.target.value}>
-		{ datasetLabels[datasetIndex] }
+		{#await datasets[datasetIndex]}
+		{:then dataset}
+		{ datasetLabels[datasetIndex] + ` (${dataset.features.length} dots)`}
+		{/await}
 	</label>
 </section>
 <section>

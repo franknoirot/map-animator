@@ -6876,7 +6876,7 @@ var app = (function () {
 
     function get_each_context_1$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[17] = list[i];
+    	child_ctx[18] = list[i];
     	child_ctx[16] = i;
     	return child_ctx;
     }
@@ -6884,7 +6884,7 @@ var app = (function () {
     // (47:1) {#each rangeUI as range, i (i)}
     function create_each_block_1$1(key_1, ctx) {
     	let label;
-    	let t0_value = /*range*/ ctx[17].label + "";
+    	let t0_value = /*range*/ ctx[18].label + "";
     	let t0;
     	let t1;
     	let input;
@@ -6893,12 +6893,12 @@ var app = (function () {
     	let input_step_value;
     	let input_value_value;
     	let t2;
-    	let t3_value = /*animParams*/ ctx[2][/*range*/ ctx[17].param] + /*range*/ ctx[17].labelSuffix + "";
+    	let t3_value = /*animParams*/ ctx[2][/*range*/ ctx[18].param] + /*range*/ ctx[18].labelSuffix + "";
     	let t3;
     	let dispose;
 
     	function input_handler(...args) {
-    		return /*input_handler*/ ctx[11](/*range*/ ctx[17], ...args);
+    		return /*input_handler*/ ctx[11](/*range*/ ctx[18], ...args);
     	}
 
     	const block = {
@@ -6912,10 +6912,10 @@ var app = (function () {
     			t2 = space();
     			t3 = text(t3_value);
     			attr_dev(input, "type", "range");
-    			attr_dev(input, "min", input_min_value = /*range*/ ctx[17].min);
-    			attr_dev(input, "max", input_max_value = /*range*/ ctx[17].max);
-    			attr_dev(input, "step", input_step_value = /*range*/ ctx[17].step);
-    			input.value = input_value_value = /*animParams*/ ctx[2][/*range*/ ctx[17].param];
+    			attr_dev(input, "min", input_min_value = /*range*/ ctx[18].min);
+    			attr_dev(input, "max", input_max_value = /*range*/ ctx[18].max);
+    			attr_dev(input, "step", input_step_value = /*range*/ ctx[18].step);
+    			input.value = input_value_value = /*animParams*/ ctx[2][/*range*/ ctx[18].param];
     			add_location(input, file$2, 48, 2, 1760);
     			attr_dev(label, "class", "range-group svelte-oyz1h0");
     			add_location(label, file$2, 47, 1, 1715);
@@ -6944,11 +6944,11 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*animParams*/ 4 && input_value_value !== (input_value_value = /*animParams*/ ctx[2][/*range*/ ctx[17].param])) {
+    			if (dirty & /*animParams*/ 4 && input_value_value !== (input_value_value = /*animParams*/ ctx[2][/*range*/ ctx[18].param])) {
     				prop_dev(input, "value", input_value_value);
     			}
 
-    			if (dirty & /*animParams*/ 4 && t3_value !== (t3_value = /*animParams*/ ctx[2][/*range*/ ctx[17].param] + /*range*/ ctx[17].labelSuffix + "")) set_data_dev(t3, t3_value);
+    			if (dirty & /*animParams*/ 4 && t3_value !== (t3_value = /*animParams*/ ctx[2][/*range*/ ctx[18].param] + /*range*/ ctx[18].labelSuffix + "")) set_data_dev(t3, t3_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(label);
@@ -6967,7 +6967,68 @@ var app = (function () {
     	return block;
     }
 
-    // (62:2) <ColorPicker bind:rgb={ colors[picker.param] }>
+    // (1:0) <script>  import Map from './Map.svelte'  import ColorPicker from './components/ColorPicker.svelte'  import { mergedGeoData, reportGeoData, fillerGeoData }
+    function create_catch_block$1(ctx) {
+    	const block = { c: noop, m: noop, p: noop, d: noop };
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_catch_block$1.name,
+    		type: "catch",
+    		source: "(1:0) <script>  import Map from './Map.svelte'  import ColorPicker from './components/ColorPicker.svelte'  import { mergedGeoData, reportGeoData, fillerGeoData }",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (57:2) {:then dataset}
+    function create_then_block$1(ctx) {
+    	let t_value = /*datasetLabels*/ ctx[6][/*datasetIndex*/ ctx[0]] + ` (${/*dataset*/ ctx[17].features.length} dots)` + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text(t_value);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*datasetIndex*/ 1 && t_value !== (t_value = /*datasetLabels*/ ctx[6][/*datasetIndex*/ ctx[0]] + ` (${/*dataset*/ ctx[17].features.length} dots)` + "")) set_data_dev(t, t_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_then_block$1.name,
+    		type: "then",
+    		source: "(57:2) {:then dataset}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (56:33)    {:then dataset}
+    function create_pending_block$1(ctx) {
+    	const block = { c: noop, m: noop, p: noop, d: noop };
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_pending_block$1.name,
+    		type: "pending",
+    		source: "(56:33)    {:then dataset}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (65:2) <ColorPicker bind:rgb={ colors[picker.param] }>
     function create_default_slot(ctx) {
     	let p;
     	let t_value = /*picker*/ ctx[14].label + "";
@@ -6977,7 +7038,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			t = text(t_value);
-    			add_location(p, file$2, 62, 3, 2270);
+    			add_location(p, file$2, 65, 3, 2400);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -6993,14 +7054,14 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(62:2) <ColorPicker bind:rgb={ colors[picker.param] }>",
+    		source: "(65:2) <ColorPicker bind:rgb={ colors[picker.param] }>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (60:1) {#each colorUI as picker, i (i)}
+    // (63:1) {#each colorUI as picker, i (i)}
     function create_each_block$1(key_1, ctx) {
     	let div;
     	let updating_rgb;
@@ -7030,7 +7091,7 @@ var app = (function () {
     			div = element("div");
     			create_component(colorpicker.$$.fragment);
     			t = space();
-    			add_location(div, file$2, 60, 1, 2211);
+    			add_location(div, file$2, 63, 1, 2341);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -7043,11 +7104,11 @@ var app = (function () {
     			ctx = new_ctx;
     			const colorpicker_changes = {};
 
-    			if (dirty & /*$$scope*/ 524288) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				colorpicker_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_rgb && dirty & /*colors, colorUI*/ 136) {
+    			if (!updating_rgb && dirty & /*colors, colorUI*/ 264) {
     				updating_rgb = true;
     				colorpicker_changes.rgb = /*colors*/ ctx[3][/*picker*/ ctx[14].param];
     				add_flush_callback(() => updating_rgb = false);
@@ -7074,7 +7135,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(60:1) {#each colorUI as picker, i (i)}",
+    		source: "(63:1) {#each colorUI as picker, i (i)}",
     		ctx
     	});
 
@@ -7097,9 +7158,8 @@ var app = (function () {
     	let t5;
     	let input;
     	let t6;
-    	let t7_value = /*datasetLabels*/ ctx[5][/*datasetIndex*/ ctx[0]] + "";
+    	let promise;
     	let t7;
-    	let t8;
     	let section1;
     	let each_blocks = [];
     	let each1_lookup = new Map_1$1();
@@ -7128,7 +7188,7 @@ var app = (function () {
 
     	const map = new Map$2({ props: map_props, $$inline: true });
     	binding_callbacks.push(() => bind(map, "showDots", map_showDots_binding));
-    	let each_value_1 = /*rangeUI*/ ctx[6];
+    	let each_value_1 = /*rangeUI*/ ctx[7];
     	const get_key = ctx => /*i*/ ctx[16];
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -7137,7 +7197,18 @@ var app = (function () {
     		each0_lookup.set(key, each_blocks_1[i] = create_each_block_1$1(key, child_ctx));
     	}
 
-    	let each_value = /*colorUI*/ ctx[7];
+    	let info = {
+    		ctx,
+    		current: null,
+    		token: null,
+    		pending: create_pending_block$1,
+    		then: create_then_block$1,
+    		catch: create_catch_block$1,
+    		value: 17
+    	};
+
+    	handle_promise(promise = /*datasets*/ ctx[5][/*datasetIndex*/ ctx[0]], info);
+    	let each_value = /*colorUI*/ ctx[8];
     	const get_key_1 = ctx => /*i*/ ctx[16];
 
     	for (let i = 0; i < each_value.length; i += 1) {
@@ -7165,8 +7236,8 @@ var app = (function () {
     			t5 = text("Dataset\n\t\t");
     			input = element("input");
     			t6 = space();
-    			t7 = text(t7_value);
-    			t8 = space();
+    			info.block.c();
+    			t7 = space();
     			section1 = element("section");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -7180,12 +7251,13 @@ var app = (function () {
     			attr_dev(input, "max", "2");
     			attr_dev(input, "step", "1");
     			input.value = "0";
-    			add_location(input, file$2, 54, 2, 2009);
+    			add_location(input, file$2, 54, 2, 2038);
+    			set_style(label, "white-space", "nowrap");
     			add_location(label, file$2, 53, 1, 1992);
     			attr_dev(section0, "class", "svelte-oyz1h0");
     			add_location(section0, file$2, 44, 0, 1561);
     			attr_dev(section1, "class", "svelte-oyz1h0");
-    			add_location(section1, file$2, 58, 0, 2166);
+    			add_location(section1, file$2, 61, 0, 2296);
 
     			dispose = [
     				listen_dev(button, "click", /*click_handler*/ ctx[10], false, false, false),
@@ -7222,8 +7294,10 @@ var app = (function () {
     			append_dev(label, t5);
     			append_dev(label, input);
     			append_dev(label, t6);
-    			append_dev(label, t7);
-    			insert_dev(target, t8, anchor);
+    			info.block.m(label, info.anchor = null);
+    			info.mount = () => label;
+    			info.anchor = null;
+    			insert_dev(target, t7, anchor);
     			insert_dev(target, section1, anchor);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -7251,10 +7325,17 @@ var app = (function () {
 
     			map.$set(map_changes);
     			if ((!current || dirty & /*showDots*/ 2) && t1_value !== (t1_value = (/*showDots*/ ctx[1] ? "Hide" : "Show") + "")) set_data_dev(t1, t1_value);
-    			const each_value_1 = /*rangeUI*/ ctx[6];
+    			const each_value_1 = /*rangeUI*/ ctx[7];
     			each_blocks_1 = update_keyed_each(each_blocks_1, dirty, get_key, 1, ctx, each_value_1, each0_lookup, section0, destroy_block, create_each_block_1$1, t4, get_each_context_1$1);
-    			if ((!current || dirty & /*datasetIndex*/ 1) && t7_value !== (t7_value = /*datasetLabels*/ ctx[5][/*datasetIndex*/ ctx[0]] + "")) set_data_dev(t7, t7_value);
-    			const each_value = /*colorUI*/ ctx[7];
+    			info.ctx = ctx;
+
+    			if (dirty & /*datasetIndex*/ 1 && promise !== (promise = /*datasets*/ ctx[5][/*datasetIndex*/ ctx[0]]) && handle_promise(promise, info)) ; else {
+    				const child_ctx = ctx.slice();
+    				child_ctx[17] = info.resolved;
+    				info.block.p(child_ctx, dirty);
+    			}
+
+    			const each_value = /*colorUI*/ ctx[8];
     			group_outros();
     			each_blocks = update_keyed_each(each_blocks, dirty, get_key_1, 1, ctx, each_value, each1_lookup, section1, outro_and_destroy_block, create_each_block$1, null, get_each_context$1);
     			check_outros();
@@ -7287,7 +7368,10 @@ var app = (function () {
     				each_blocks_1[i].d();
     			}
 
-    			if (detaching) detach_dev(t8);
+    			info.block.d();
+    			info.token = null;
+    			info = null;
+    			if (detaching) detach_dev(t7);
     			if (detaching) detach_dev(section1);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -7425,10 +7509,10 @@ var app = (function () {
     		animParams,
     		colors,
     		dotPromise,
+    		datasets,
     		datasetLabels,
     		rangeUI,
     		colorUI,
-    		datasets,
     		map_showDots_binding,
     		click_handler,
     		input_handler,
