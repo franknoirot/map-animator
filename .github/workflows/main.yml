@@ -25,7 +25,7 @@ jobs:
     - name: Copycat Directory
       uses: andstor/copycat-action@v3.0.0
       with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          personal_token: ${{ secrets.PORTFOLIO_SECRET }}
           src_path: public/*
           dst_path: work/map-animator/
           dst_owner: franknoirot
@@ -45,7 +45,7 @@ jobs:
     - name: Copycat Config
       uses: andstor/copycat-action@v3.0.0
       with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          personal_token: ${{ secrets.PORTFOLIO_SECRET }}
           src_path: portfolio-config.json
           dst_path: _data/work/mapAnimator.json
           dst_owner: franknoirot
