@@ -26,9 +26,8 @@ jobs:
       uses: andstor/copycat-action@v3.0.0
       with:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
-          src_path: public/*
-          dst_path: work/map-animator/*
-          clean: true
+          src_path: map-animator
+          dst_path: work
           dst_owner: franknoirot
           dst_repo_name: franknoirot.co
   

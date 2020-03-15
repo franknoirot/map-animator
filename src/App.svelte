@@ -54,6 +54,7 @@
 	<label style='white-space: nowrap;'>Dataset
 		<input type='range' min='0' max='2' step='1' value='0' on:input={e => datasetIndex = e.target.value}>
 		{#await datasets[datasetIndex]}
+		...loading
 		{:then dataset}
 		{ datasetLabels[datasetIndex] + ` (${dataset.features.length} dots)`}
 		{/await}
