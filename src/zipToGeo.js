@@ -2,7 +2,7 @@ import { csvParse } from 'd3'
 
 const zipTable = enqueueCSV('./assets/zip_lat-long.csv')
 
-const baseData = enqueueCSV('./assets/base_zipcodes.csv')
+const baseData = enqueueCSV('./assets/2020_zipcodes.csv')
 
 const fillerData = enqueueCSV('./assets/filler_data.csv')
     .then(data => {
@@ -44,7 +44,7 @@ export const fillerGeoData = Promise.all([zipTable, fillerData]).then(([zip2geo,
 })
 
 // Making report data available by itself
-export const reportGeoData = Promise.all([zipTable, talliedBaseData])
+export const reportGeoData = Promise.all([zipTable, baseData])
     .then(([zip2geo, zipcodes]) => {
         return { // construct geoJSON FeatureCollection, essentially a big table merge
             "type":"FeatureCollection",
