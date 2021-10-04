@@ -1,8 +1,13 @@
 import { csvParse } from 'd3'
 
+function roundToDecimals(num, places) {
+    const factorOfTen =- Math.pow(10, places)
+    return Math.round(num * factorOfTen) / factorOfTen
+}
+
 const zipTable = enqueueCSV('./assets/zip_lat-long.csv')
 
-const baseData = enqueueCSV('./assets/2020_zipcodes.csv')
+const baseData = enqueueCSV('./assets/na-admission-zip_outpatient-2020.csv')
 
 const fillerData = enqueueCSV('./assets/filler_data.csv')
     .then(data => {
@@ -87,7 +92,7 @@ export const mergedGeoData = Promise.all([zipTable, talliedBaseData, fillerData]
                     },
                     geometry: {
                         type: "Point",
-                        coordinates: [parseFloat(item.longitude), parseFloat(item.latitude)]
+                        coordinates: [roundToDecimals(parseFloat(item.longitude), 3), roundToDecimals(parseFloat(item.latitude), 3)]
                     }
                 }
             }).filter(item => !!item),

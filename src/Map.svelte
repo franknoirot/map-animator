@@ -2,6 +2,8 @@
 	import * as d3 from 'd3'
 	import * as topojson from 'topojson-client'
 	import { labelTweaks, matchLabelToTweak } from './labelTweaks'
+	import Crest from './components/Crest.svelte'
+	import { roundToDecimals } from './utils/math'
 
 	export let showDots = false
 	export let animLength = 6
@@ -29,6 +31,16 @@
 		.projection(projection);
 
 	const sortFn = (a, b) => a.geometry.coordinates[0] - b.geometry.coordinates[0]
+
+	const crestSize = 40
+	const crestPositions = [
+		{ x: .1, y: .37 },
+		{ x: .12, y: .53 },
+		{ x: .15, y: .56 },
+		{ x: .68, y: .62 },
+		{ x: .78, y: .44 },
+		{ x: .81, y: .3 },
+	]
 </script>
 
 <svg id="map" viewBox={viewBox}
@@ -55,7 +67,7 @@
 		{:then dots}
 			{#each dots.features.sort(sortFn) as dot, i (i)}
 		<path d={path.pointRadius(dotSize)(dot)} class="zipcode" id={'dot-'+i}
-			style={`--delay:${(i+(Math.random()-.5)*dots.features.length*animSpread)/dots.features.length*animLength}s; --cx:${projection(dot.geometry.coordinates)[0]}px; --cy:${projection(dot.geometry.coordinates)[1]}px;`}></path>
+			style={`--delay:${(i+(Math.random()-.5)*dots.features.length*animSpread)/dots.features.length*animLength}s; --cx:${roundToDecimals(projection(dot.geometry.coordinates)[0], 3)}px; --cy:${roundToDecimals(projection(dot.geometry.coordinates)[1], 3)}px;`}></path>
 			{/each}
 		{/await}
 	</g>
@@ -67,6 +79,9 @@
 		{/each}
 	</g>
 {/await}
+	{#each crestPositions as crest, i}
+		<Crest x={crest.x * width} y={crest.y * height} width={crestSize} height={crestSize} viewBox='0 0 170 170' />
+	{/each}
 </svg>
 
 <style>
@@ -112,11 +127,11 @@
 		fill: var(--dots);
 		transform-origin: var(--cx) var(--cy);
 		transform: translateY(1vh);
+		/* filter: drop-shadow(2px 0 2px hsla(45deg, 75%, 85%, 0.15)); */
 	}
 
 	.play-anim .zipcode {
-		 animation: appear var(--growth-duration) var(--delay) linear forwards;
-		filter: drop-shadow(2px 0 2px hsla(45deg, 75%, 85%, 0.15));
+		animation: appear var(--growth-duration) var(--delay) linear forwards;
 	}
 
 	@keyframes appear {
