@@ -18,7 +18,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
-    "d3": "^5.14.2",
+    "d3": "^7.6.1",
     "sirv-cli": "^0.4.4",
     "topojson-client": "^3.1.0"
   }
